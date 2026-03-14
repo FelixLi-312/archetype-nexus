@@ -1,0 +1,33 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.1",
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "storybook": "^10.2.19",
+    "@storybook/react-vite": "^10.2.19",
+    "@chromatic-com/storybook": "^5.0.1",
+    "@storybook/addon-vitest": "^10.2.19",
+    "@storybook/addon-a11y": "^10.2.19",
+    "@storybook/addon-docs": "^10.2.19",
+    "@storybook/addon-onboarding": "^10.2.19",
+    "prop-types": "^15.8.1",
+    "eslint-plugin-storybook": "^10.2.19",
+    "vitest": "^4.1.0",
+    "playwright": "^1.58.2",
+    "@vitest/browser-playwright": "^4.1.0",
+    "@vitest/coverage-v8": "^4.1.0"
+  }
+}

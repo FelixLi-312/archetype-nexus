@@ -1,0 +1,23 @@
+{
+  "name": "@nexus/vue-admin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "pnpm exec eslint --ext .ts,.js,.vue .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.3.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.0",
+    "@types/node": "^25.5.0",
+    "@nexus/eslint-config": "workspace:*"
+  },
+  "eslintConfig": {
+    "extends": "@nexus/eslint-config"
+  }
+}

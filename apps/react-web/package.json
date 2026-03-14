@@ -1,0 +1,24 @@
+{
+  "name": "@nexus/react-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "pnpm exec eslint --ext .ts,.tsx,.js .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.0",
+    "@types/node": "^25.5.0",
+    "@nexus/eslint-config": "workspace:*"
+  },
+  "eslintConfig": {
+    "extends": "@nexus/eslint-config"
+  }
+}

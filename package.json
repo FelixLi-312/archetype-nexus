@@ -1,0 +1,42 @@
+{
+  "name": "archetype-nexus",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "react": "turbo run dev --filter=react-web",
+    "vue": "turbo run dev --filter=vue-admin",
+    "docs": "turbo run dev --filter=docs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.1",
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "eslint": "^10.0.3",
+    "@typescript-eslint/parser": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-vue": "^10.8.0",
+    "prettier": "3.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "@commitlint/config-conventional": "^20.4.4",
+    "commitlint": "^20.4.4",
+    "turbo": "^2.8.17",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/node": "^25.5.0",
+    "vite": "^8.0.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "concurrently": "^9.2.1",
+    "@storybook/react-vite": "^10.2.19",
+    "@storybook/vue3-vite": "^10.2.19"
+  }
+}
