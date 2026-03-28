@@ -1,5 +1,10 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import './styles/index.scss'
+const app = createApp(App)
+import { install as installUI } from '@nexus/ui'
+import router from './router'
 
-createApp(App).mount('#app')
+app.use(router)
+installUI(app)
+app.mount('#app')

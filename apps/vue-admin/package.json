@@ -9,15 +9,24 @@
     "lint": "pnpm exec eslint --ext .ts,.js,.vue .",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "vue": "^3.3.6"
-  },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.0",
+    "@nexus/eslint-config": "workspace:*",
     "@types/node": "^25.5.0",
-    "@nexus/eslint-config": "workspace:*"
+    "@vitejs/plugin-vue": "^6.0.5",
+    "sass": "^1.98.0",
+    "vue-tsc": "^2.2.0"
   },
   "eslintConfig": {
     "extends": "@nexus/eslint-config"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
+    "@nexus/ui": "workspace:*",
+    "@types/leaflet": "^1.9.21",
+    "element-plus": "^2.13.5",
+    "leaflet": "^1.9.4",
+    "vue": "^3.5.30",
+    "vue-router": "^5.0.3",
+    "@nexus/utils": "workspace:*"
   }
 }

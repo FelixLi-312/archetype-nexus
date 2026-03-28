@@ -1,0 +1,26 @@
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+
+// 全局样式示例
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// 隐藏滚动条但保留功能 (webkit)
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cdcdcd;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}

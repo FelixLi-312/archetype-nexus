@@ -1,0 +1,25 @@
+// 主题色
+$primary-color: #409eff;
+$success-color: #67c23a;
+$warning-color: #e6a23c;
+$danger-color: #f56c6c;
+$info-color: #909399;
+
+// 布局相关
+$sidebar-width: 210px;
+$sidebar-width-collapsed: 64px;
+$header-height: 60px;
+
+// 字体
+$font-family:
+  'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial,
+  sans-serif;
+
+// 覆盖 Element Plus 的全局 CSS 变量 (推荐方式)
+:root {
+  --el-color-primary: #{$primary-color};
+  //   --el-menu-bg-color: #304156;
+  //   --el-menu-text-color: #bfcbd9;
+  //   --el-menu-active-color: #409eff;
+  //   --el-menu-hover-bg-color: #263445;
+}

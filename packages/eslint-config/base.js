@@ -6,10 +6,10 @@ export const baseConfig = {
   languageOptions: {
     parser: tsParser,
     ecmaVersion: 'latest',
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: {
-    '@typescript-eslint': tsPlugin,
+    '@typescript-eslint': tsPlugin
   },
   rules: {
     'no-console': 'warn',
@@ -18,5 +18,25 @@ export const baseConfig = {
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/consistent-type-imports': 'warn',
-  },
+    // any 类型的参数允许使用
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-expressions': [
+      'error',
+      {
+        allowShortCircuit: true, // 允许 a && b()
+        allowTernary: true, // 允许 a ? b() : c()
+        allowTaggedTemplates: true
+      }
+    ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        // 关键配置：允许以 _ 开头的变量未使用
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        // 可选：也忽略解构赋值中以 _ 开头的属性
+        destructuredArrayIgnorePattern: '^_'
+      }
+    ]
+  }
 }

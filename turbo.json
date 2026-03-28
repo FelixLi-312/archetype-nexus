@@ -7,9 +7,10 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", "storybook-static/**", "build/**"]
     },
-    "lint": {},
+    "lint": {
+    },
     "typecheck": {}
   }
 }

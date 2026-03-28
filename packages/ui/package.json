@@ -1,13 +1,57 @@
 {
   "name": "@nexus/ui",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./style.css": "./dist/ui.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm exec vue-tsc --noEmit && vite build",
+    "lint": "pnpm exec eslint --ext .ts,.vue ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.28.1"
+  "packageManager": "pnpm@10.32.1",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "peerDependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
+    "@types/leaflet": "^1.9.21",
+    "element-plus": "^2.13.5",
+    "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
+    "leaflet.heat": "^0.2.0",
+    "leaflet.markercluster": "^1.5.3",
+    "vue": "^3.5.25"
+  },
+  "devDependencies": {
+    "@nexus/eslint-config": "workspace:*",
+    "@types/leaflet-draw": "^1.0.13",
+    "@types/leaflet.heat": "^0.2.5",
+    "@types/leaflet.markercluster": "^1.5.6",
+    "@types/node": "^25.5.0",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
+    "leaflet.heat": "^0.2.0",
+    "leaflet.markercluster": "^1.5.3",
+    "typescript": "~5.9.3",
+    "vite-plugin-dts": "^4.5.4",
+    "vue-tsc": "^3.2.6"
+  },
+  "eslintConfig": {
+    "extends": "@nexus/eslint-config"
+  }
 }
