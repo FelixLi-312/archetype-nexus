@@ -15,11 +15,8 @@ export const baseConfig = {
     'no-console': 'warn',
     'no-debugger': 'warn',
 
-    '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/consistent-type-imports': 'warn',
-    // any 类型的参数允许使用
-    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-unused-expressions': [
       'error',
       {
@@ -34,6 +31,8 @@ export const baseConfig = {
         // 关键配置：允许以 _ 开头的变量未使用
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
+        // 关键配置：允许以 _ 开头的 catch 变量未使用
+        caughtErrorsIgnorePattern: '^_',
         // 可选：也忽略解构赋值中以 _ 开头的属性
         destructuredArrayIgnorePattern: '^_'
       }

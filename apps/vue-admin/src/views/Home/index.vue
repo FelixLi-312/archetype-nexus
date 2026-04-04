@@ -43,7 +43,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DynamicForm } from '@nexus/ui'
 import type { FormItemSchema } from '@nexus/ui'
-import { debounce, deepClone, formatDate } from '@nexus/utils'
+import { deepClone, formatDate } from '@nexus/utils'
 import Table from './Table.vue'
 const formRef = ref<InstanceType<typeof DynamicForm>>()
 const submitting = ref(false)

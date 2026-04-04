@@ -1,7 +1,12 @@
+/**
+ * 地图复位组件
+ * 用于在地图上添加复位按钮，点击后将地图中心重置为默认位置
+ * 支持自定义按钮位置和事件绑定
+ */
 <script setup lang="ts">
 import { inject } from 'vue'
 
-const props = defineProps({
+defineProps({
   /** 按钮位置 */
   position: {
     type: String as () => 'topright' | 'topleft' | 'bottomright' | 'bottomleft',

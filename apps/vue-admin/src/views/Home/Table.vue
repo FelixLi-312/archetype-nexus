@@ -65,7 +65,6 @@ const tableConfig = reactive<ProTableConfig<User>>({
       icon: 'Delete',
       position: 'left',
       onClick: () => {
-        debugger
         ElMessage.success(`点击了批量删除`)
       }
     },
@@ -192,7 +191,6 @@ const tableConfig = reactive<ProTableConfig<User>>({
     size: 'small',
     background: false,
     onChange: (page, size) => {
-      debugger
       console.log('page, size ==> ', page, size)
     }
   }

@@ -2,9 +2,7 @@
   <section class="app-main">
     <div class="main-content">
       <router-view v-slot="{ Component, route }">
-        <transition name="fade-transform" mode="out-in">
-          <component :is="Component" :key="route.path" />
-        </transition>
+        <component :is="Component" :key="route.path" />
       </router-view>
     </div>
   </section>
@@ -17,7 +15,7 @@
 <style scoped>
 .app-main {
   background-color: #f0f2f5;
-  min-height: calc(100vh - 60px); /* 减去 header 高度 */
+  height: calc(100vh - 60px); /* 减去 header 高度 */
   padding: 20px;
   position: relative;
   overflow: hidden;

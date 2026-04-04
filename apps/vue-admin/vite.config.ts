@@ -5,7 +5,16 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue()],
-   resolve: {
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, '') // 因为后端加了 globalPrefix('api')，所以不需要 rewrite
+      }
+    }
+  },
+  resolve: {
      alias: {
       '@': path.resolve(__dirname, 'src'),
       '@nexus/ui': path.resolve(__dirname, '../../packages/ui/src'),

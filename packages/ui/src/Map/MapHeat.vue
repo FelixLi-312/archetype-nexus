@@ -1,3 +1,9 @@
+/**
+ * 地图热力图组件
+ * 用于在地图上添加热力图（heat layer）
+ * 支持自定义热力图项配置和事件绑定
+ */
+<template></template>
 <script setup lang="ts">
 import { inject, watch } from 'vue'
 import L from 'leaflet'

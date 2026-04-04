@@ -21,15 +21,9 @@
       >
         <template v-for="(btn, index) in visibleButtons" :key="index">
           <!-- A. 下拉菜单模式 -->
-          <!-- <el-dropdown
+          <el-dropdown
             v-if="btn.dropdown && btn.dropdown.length"
             trigger="click"
-            @command="
-              (cmd) => {
-                debugger
-                cmd.onClick?.(scope.row)
-              }
-            "
             style="display: inline-block"
           >
             <component
@@ -38,6 +32,7 @@
               :icon="btn.icon"
               :size="btn.size || 'small'"
               :disabled="btn.disabled"
+              :link="btn.tag === 'el-link'"
             >
               {{ btn.label }}
               <el-icon class="el-icon--right"><ArrowDown /></el-icon>
@@ -48,21 +43,22 @@
                 <el-dropdown-item
                   v-for="(sub, sIdx) in btn.dropdown"
                   :key="sIdx"
-                  :command="() => sub.onClick?.(scope.row)"
                   :divided="sub.divided"
                   :disabled="sub.disabled"
+                  @click="sub.onClick?.(scope.row)"
                 >
-                  <el-icon v-if="sub.icon" style="margin-right: 5px"
-                    ><component :is="sub.icon"
-                  /></el-icon>
+                  <el-icon v-if="sub.icon" style="margin-right: 5px">
+                    <component :is="sub.icon" />
+                  </el-icon>
                   {{ sub.label }}
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
-          </el-dropdown> -->
+          </el-dropdown>
 
           <!-- B. 普通按钮/链接 -->
           <component
+            v-else
             :is="btn.tag || 'el-button'"
             :type="btn.type"
             :icon="btn.icon"

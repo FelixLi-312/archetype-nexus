@@ -9,7 +9,7 @@
     :align="col.align || 'left'"
     :header-align="col.headerAlign || col.align || 'center'"
     :show-overflow-tooltip="col.ellipsis"
-    v-if="!col.visible"
+    v-if="col.visible !== false"
   >
     <!-- 情况 A: 有子列 -> 递归渲染 (作为分组头) -->
     <template v-if="col.children && col.children.length">
@@ -20,10 +20,7 @@
     <!-- 情况 B: 无子列 -> 渲染具体内容 (叶子节点) -->
     <template v-if="!col.children || !col.children.length" #default="scope">
       <!-- 1. Render 函数 -->
-      <component
-        v-if="typeof col.render === 'function'"
-        :is="renderFunctionWrapper(col.render, scope)"
-      />
+      <RenderCell v-if="typeof col.render === 'function'" :render="col.render" :scope="scope" />
 
       <!-- 2. 动态组件 (字符串名称) -->
       <component v-else-if="typeof col.render === 'string'" :is="col.render" v-bind="scope" />
@@ -46,7 +43,7 @@
 </template>
 
 <script setup lang="ts" name="TableColumn">
-import { h } from 'vue'
+import { h, defineComponent } from 'vue'
 // 引入自身以实现递归
 import type { ColumnConfig } from '../types'
 
@@ -59,16 +56,15 @@ defineProps<{
   col: ColumnConfig
 }>()
 
-const renderFunctionWrapper = (
-  renderFn: (h: typeof import('vue').h, scope: any) => any,
-  scope: any
-) => {
-  return {
-    setup() {
-      return () => renderFn(h, scope)
-    }
+/**
+ * 优化 Render 函数渲染方式，避免频繁创建临时组件
+ */
+const RenderCell = defineComponent({
+  props: ['render', 'scope'],
+  setup(props) {
+    return () => props.render(h, props.scope)
   }
-}
+})
 
 const getValue = (obj: any, path: string) => {
   if (!path) return ''

@@ -3,7 +3,13 @@
 <template>
   <div class="pro-table-wrapper">
     <!-- 1. 工具栏 -->
-    <TableToolbar :toolbar="config.toolbar" :exportable="config.exportable" @export="handleExport">
+    <TableToolbar
+      :toolbar="config.toolbar"
+      :exportable="config.exportable"
+      :columns="config.columns"
+      @export="handleExport"
+      @column-sort="handleColumnSort"
+    >
       <template #left><slot name="toolbar-left"></slot></template>
       <template #right><slot name="toolbar-right"></slot></template>
     </TableToolbar>
@@ -18,15 +24,18 @@
 
     <!-- 3. 表格主体 -->
     <el-table
-      v-loading="config.loading"
+      v-loading="loading"
       ref="tableRef"
-      :data="data"
+      :data="tableData"
       :border="config.border"
       :stripe="config.stripe"
       :row-key="rowKey"
+      :height="config.height"
+      :max-height="config.maxHeight"
       @selection-change="emitSelectionChange"
       @sort-change="emitSortChange"
       style="width: 100%"
+      :class="{ 'flex-table': config.height === '100%' }"
     >
       <el-table-column v-if="config.selection" type="selection" width="55" align="center" />
 
@@ -61,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import * as XLSX from 'xlsx'
 // 引入子组件
@@ -75,7 +84,7 @@ import type { ColumnConfig, ProTableConfig, ProTableEmits, ProTableInstance } fr
 
 // Props & Emits (保持原有逻辑)
 const props = defineProps<{
-  data: any[]
+  data?: any[]
   config: ProTableConfig
   rowKey?: string
 }>()
@@ -84,70 +93,155 @@ const emit = defineEmits<ProTableEmits>()
 
 // 新增：表格实例引用
 const tableRef = ref()
-const tableData = ref<any[]>([])
+const tableData = ref<any[]>(props.data || [])
+const loading = ref(props.config.loading || false)
 
 const searchForm = reactive<Record<string, any>>({})
 
-const currentPage = ref(props.config.pagination?.currentPage || 1)
-const pageSize = ref(props.config.pagination?.pageSize || 10)
-
 const rowKey = props.rowKey || 'id'
+
+// 分页 Model (优先取 config 中的配置)
 const currentPageModel = ref(props.config.pagination?.currentPage || 1)
 const pageSizeModel = ref(props.config.pagination?.pageSize || 10)
 const totalModel = ref(props.config.pagination?.total || 0)
-if (props.config.searchConfig) {
-  props.config.searchConfig.forEach((item) => {
-    searchForm[item.prop] = item.defaultValue !== undefined ? item.defaultValue : ''
+
+// 监听 props.data 的变化，保持同步
+watch(
+  () => props.data,
+  (newData) => {
+    if (newData) tableData.value = newData
+  },
+  { deep: true }
+)
+
+// 监听 config.loading
+watch(
+  () => props.config.loading,
+  (newLoading) => {
+    loading.value = !!newLoading
+  }
+)
+
+/**
+ * 请求自动化逻辑
+ */
+const requestData = async () => {
+  if (!props.config.request) return
+
+  loading.value = true
+  try {
+    const params = {
+      ...searchForm,
+      page: currentPageModel.value,
+      size: pageSizeModel.value
+    }
+    const { data, total } = await props.config.request(params)
+    tableData.value = data
+    totalModel.value = total
+    // 同步给 config.pagination 以便外部感知
+    if (props.config.pagination) {
+      props.config.pagination.total = total
+    }
+  } catch (error) {
+    console.error('ProTable Request Error:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+// 初始化搜索表单默认值
+const initSearchForm = () => {
+  const config = props.config.searchConfig
+  if (!config) return
+
+  const items = Array.isArray(config) ? config : config.items
+  items?.forEach((item) => {
+    if (item.defaultValue !== undefined) {
+      searchForm[item.prop] = item.defaultValue
+    }
   })
 }
 
-// --- 事件处理逻辑 (从原子组件冒泡上来) ---
+initSearchForm()
+
+onMounted(() => {
+  if (props.config.immediate !== false) {
+    requestData()
+  }
+})
+
+// --- 事件处理逻辑 ---
 
 const handlePageChange = (page: number) => {
-  debugger
   currentPageModel.value = page
-  const size = pageSizeModel.value
-  // 调 schema 回调
-  props.config.pagination?.onChange?.(page, size)
+  if (props.config.request) {
+    requestData()
+  } else {
+    props.config.pagination?.onChange?.(page, pageSizeModel.value)
+    emit('page-change', { page, size: pageSizeModel.value })
+  }
 }
+
 const handleSizeChange = (size: number) => {
   pageSizeModel.value = size
-  const page = currentPageModel.value
-  props.config.pagination?.onChange?.(page, size)
+  if (props.config.request) {
+    requestData()
+  } else {
+    props.config.pagination?.onChange?.(currentPageModel.value, size)
+    emit('size-change', size)
+  }
 }
 
 const handleSearch = () => {
   currentPageModel.value = 1
-  emit('update:currentPage', 1)
-  emit('search', { ...searchForm, page: 1, size: pageSizeModel.value })
+  if (props.config.request) {
+    requestData()
+  } else {
+    emit('search', { ...searchForm, page: 1, size: pageSizeModel.value })
+  }
 }
 
 const handleReset = () => {
-  if (props.config.searchConfig) {
-    props.config.searchConfig.forEach((item) => {
-      searchForm[item.prop] = item.defaultValue !== undefined ? item.defaultValue : ''
-    })
-  }
+  // 清空表单
+  Object.keys(searchForm).forEach((key) => {
+    delete searchForm[key]
+  })
+  // 重新加载默认值
+  initSearchForm()
   emit('reset')
-  handleSearch()
+
+  currentPageModel.value = 1
+  if (props.config.request) {
+    requestData()
+  } else {
+    handleSearch()
+  }
 }
 
 const emitSelectionChange = (val: any[]) => emit('selection-change', val)
 const emitSortChange = (val: any) => emit('sort-change', val)
 
+const handleColumnSort = (newColumns: ColumnConfig[]) => {
+  props.config.columns = newColumns
+}
+
 // --- Excel 导出逻辑 (保留在主组件，因为需要访问全部数据) ---
 const handleExport = () => {
-  if (!props.data || props.data.length === 0) {
+  if (!tableData.value || tableData.value.length === 0) {
     ElMessage.warning('没有数据可导出')
     return
   }
 
-  // 递归拍平列
+  // 递归拍平列，只导出可见列
   const flatColumns = (cols: ColumnConfig[]): ColumnConfig[] => {
     const result: ColumnConfig[] = []
 
     const loop = (list: ColumnConfig[]) => {
       list.forEach((col) => {
+        // 优先取 exportVisible，其次取 visible
+        const isVisible = col.exportVisible !== undefined ? col.exportVisible : col.visible !== false
+        if (!isVisible) return
+
         if (col.children && col.children.length) {
           loop(col.children)
         } else {
@@ -172,10 +266,26 @@ const handleExport = () => {
     }
   })
 
-  const formattedData = props.data.map((row) => {
+  const formattedData = tableData.value.map((row) => {
     const item: any = {}
-    keys.forEach((k) => {
-      item[k] = k.split('.').reduce((o, i) => o?.[i], row)
+    leafColumns.forEach((col) => {
+      if (!col.prop) return
+      
+      const val = col.prop.split('.').reduce((o, i) => o?.[i], row)
+      
+      // 1. 优先使用自定义导出格式化函数
+      if (col.exportFormat) {
+        item[col.prop] = col.exportFormat(row)
+      } 
+      // 2. 其次使用 valueEnum 枚举映射
+      else if (col.valueEnum && val !== undefined) {
+        const enumItem = col.valueEnum[String(val)]
+        item[col.prop] = enumItem ? enumItem.text : val
+      }
+      // 3. 最后使用原始值
+      else {
+        item[col.prop] = val
+      }
     })
     return item
   })
@@ -190,19 +300,22 @@ const handleExport = () => {
 
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1')
-
-  XLSX.writeFile(wb, props.config.exportFileName || `Export_${Date.now()}.xlsx`)
-
+  const fileName  = props.config.exportFileName ? props.config.exportFileName + '.xlsx' : `Export_${Date.now()}.xlsx`
+  XLSX.writeFile(wb, fileName)
   emit('export')
 }
 /**
  * 重新加载数据
  */
 const reload = () => {
-  emit('page-change', {
-    page: currentPage.value,
-    size: pageSize.value
-  })
+  if (props.config.request) {
+    requestData()
+  } else {
+    emit('page-change', {
+      page: currentPageModel.value,
+      size: pageSizeModel.value
+    })
+  }
 }
 /**
  * 设置表格数据
@@ -222,12 +335,7 @@ const getData = () => {
  * 重置搜索参数
  */
 const resetSearch = () => {
-  Object.keys(searchForm).forEach((k) => {
-    searchForm[k] = undefined
-  })
-
-  emit('reset')
-  reload()
+  handleReset()
 }
 
 /**
@@ -270,7 +378,7 @@ const toggleRowSelection = (row: any, selected?: boolean) => {
  * @param page
  */
 const setPage = (page: number) => {
-  currentPage.value = page
+  currentPageModel.value = page
   reload()
 }
 /**
@@ -278,7 +386,7 @@ const setPage = (page: number) => {
  * @param size
  */
 const setPageSize = (size: number) => {
-  pageSize.value = size
+  pageSizeModel.value = size
   reload()
 }
 
@@ -314,5 +422,13 @@ defineExpose<ProTableInstance>({
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100%; /* 让包装容器也能充满父级 */
+  box-sizing: border-box;
+  overflow: hidden; /* 防止内部内容溢出 */
+}
+
+.flex-table {
+  flex: 1;
+  overflow: hidden;
 }
 </style>

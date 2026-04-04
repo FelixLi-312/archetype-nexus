@@ -1,3 +1,9 @@
+/**
+ * 地图标记聚类组件
+ * 用于在地图上添加标记聚类（marker cluster）
+ * 支持自定义标记项配置和事件绑定
+ */
+<template></template>
 <script setup lang="ts">
 import { inject, watch } from 'vue'
 import L from 'leaflet'

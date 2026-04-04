@@ -11,15 +11,23 @@ export interface SearchItem {
   placeholder?: string
   options?: { label: string; value: any }[] // for select
   defaultValue?: any
-  span?: number // 占据栅格数 (可选，用于更复杂的布局)
+  span?: number // 占据栅格数 (默认 6, 即一行 4 个)
   // 组件属性 (直接传递给 Element Plus 组件)
-  componentProps?: Record<string, any> // ⭐⭐⭐
+  componentProps?: Record<string, any>
   // 表单项属性 (直接传递给 el-form-item)
   formItemProps?: Record<string, any>
   // 列属性 (直接传递给 el-table-column)
   colProps?: Record<string, any>
 
   visible?: boolean
+}
+
+// --- 搜索栏总配置 ---
+export interface SearchConfig {
+  items: SearchItem[]
+  collapsed?: boolean // 是否默认折叠
+  defaultShowCount?: number // 默认显示个数
+  labelWidth?: string | number
 }
 
 // --- 按钮配置 (基础) ---
@@ -107,6 +115,10 @@ export interface ColumnConfig<T = any> {
   ) => VNode
 
   children?: ColumnConfig<T>[]
+
+  // 导出相关配置
+  exportVisible?: boolean // 是否在导出中可见 (默认随 visible)
+  exportFormat?: (row: T) => string | number | boolean // 自定义导出格式化函数
 }
 
 // --- 工具栏按钮配置 ---
@@ -142,10 +154,16 @@ export interface ProTableConfig<T = any> {
   selection?: boolean
   columns: ColumnConfig<T>[]
   actions?: ActionsConfig // 扁平化操作列配置
-  searchConfig?: SearchItem[]
+  searchConfig?: SearchItem[] | SearchConfig
   toolbar?: ToolbarButtonConfig[]
   exportable?: boolean
   exportFileName?: string
+  height?: string | number
+  maxHeight?: string | number
+
+  // --- 请求配置 ---
+  request?: (params: any) => Promise<{ data: T[]; total: number }>
+  immediate?: boolean // 是否立即请求 (默认 true)
 
   // --- 新增：分页配置 ---
   pagination?: PaginationConfig

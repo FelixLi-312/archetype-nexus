@@ -1,3 +1,9 @@
+/**
+ * 地图绘制组件
+ * 用于在地图上添加绘制功能，如绘制矩形、多边形、圆等
+ * 支持自定义绘制项配置和事件绑定
+ */
+<template></template>
 <script setup lang="ts">
 import { inject, watch } from 'vue'
 import L from 'leaflet'

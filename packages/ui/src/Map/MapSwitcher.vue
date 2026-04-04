@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import type { MapType } from './types'
 
-const props = defineProps({
+defineProps({
   /** 当前地图类型 */
   modelValue: {
     type: String as () => MapType,

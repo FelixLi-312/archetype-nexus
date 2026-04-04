@@ -1,9 +1,12 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, HttpAdapterHost } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger } from 'nestjs-pino';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { TransformInterceptor } from './common/transform.interceptor';
+import { AllExceptionsFilter } from './common/all-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -12,6 +15,19 @@ async function bootstrap() {
 
   // Pino Logger
   app.useLogger(app.get(Logger));
+
+  // Global Prefix
+  app.setGlobalPrefix('api');
+
+  // Global Pipes
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+
+  // Global Interceptors
+  app.useGlobalInterceptors(new TransformInterceptor());
+
+  // Global Filters
+  const httpAdapterHost = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost));
 
   // Swagger
   const config = new DocumentBuilder()

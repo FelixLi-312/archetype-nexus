@@ -1,3 +1,8 @@
+/**
+ * 地图容器组件
+ * 用于创建和管理 Leaflet 地图实例
+ * 支持自定义地图配置和事件绑定
+ */
 <script setup lang="ts">
 import { ref, shallowRef, onMounted, onBeforeUnmount, provide, watch } from 'vue'
 import L from 'leaflet'

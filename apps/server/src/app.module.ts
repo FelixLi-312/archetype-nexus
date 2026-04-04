@@ -4,9 +4,11 @@ import { LoggerModule } from 'nestjs-pino';
 import configuration from './config/configuration';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { PostModule } from './modules/post/post.module';
 
 @Module({
   imports: [
@@ -19,9 +21,11 @@ import { UploadModule } from './modules/upload/upload.module';
         level: 'info',
       },
     }),
+    PrismaModule,
     AuthModule,
     UserModule,
     UploadModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

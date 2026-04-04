@@ -14,4 +14,9 @@ export default tseslint.config(
       },
     },
   },
+  {
+    rules: {
+      //  "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
+    },
+  },
 );

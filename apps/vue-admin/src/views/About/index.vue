@@ -54,9 +54,8 @@ import {
   MapSwitcher,
   MapReset,
   MapFullscreen,
-  useMap,
-  MarkerItem,
-  MapType
+  type MarkerItem,
+  type MapType
 } from '@nexus/ui'
 import shanGBoundary from './610000.geoJson?raw'
 const MAP_KEY = 'df3ff37e0f577ada3ea370eea158425c'

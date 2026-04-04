@@ -15,17 +15,14 @@
     <div class="right-part">
       <el-dropdown trigger="click">
         <div class="avatar-wrapper">
-          <el-avatar
-            :size="36"
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-          />
-          <span class="username">Admin</span>
+          <el-avatar :size="36" :src="userStore.userAvatar" />
+          <span class="username">{{ userStore.username }}</span>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item icon="User">Profile</el-dropdown-item>
-            <el-dropdown-item icon="Setting">Settings</el-dropdown-item>
-            <el-dropdown-item divided icon="SwitchButton">Logout</el-dropdown-item>
+            <el-dropdown-item :icon="User">个人中心</el-dropdown-item>
+            <el-dropdown-item :icon="Setting">系统设置</el-dropdown-item>
+            <el-dropdown-item divided :icon="SwitchButton" @click="handleLogout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -35,8 +32,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { Expand, Fold } from '@element-plus/icons-vue'
+import { useRoute, useRouter } from 'vue-router'
+import { Expand, Fold, User, Setting, SwitchButton } from '@element-plus/icons-vue'
+import { useUserStore } from '@/store/modules/user'
+import { ElMessageBox, ElMessage } from 'element-plus'
+
 defineProps<{
   isCollapse: boolean
 }>()
@@ -46,11 +46,25 @@ const emit = defineEmits<{
 }>()
 
 const route = useRoute()
+const router = useRouter()
+const userStore = useUserStore()
 
 const currentTitle = computed(() => route.meta?.title)
 
 const toggleSidebar = () => {
   emit('toggle')
+}
+
+const handleLogout = () => {
+  ElMessageBox.confirm('确定要退出登录吗？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    await userStore.logout()
+    ElMessage.success('已退出登录')
+    router.push(`/login?redirect=${route.fullPath}`)
+  })
 }
 </script>
 
