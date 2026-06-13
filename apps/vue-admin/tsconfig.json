@@ -7,7 +7,8 @@
       "@/*": ["src/*"],
       "@nexus/ui": ["../../packages/ui/src/index.ts"],
       "@nexus/utils": ["../../packages/utils/src/index.ts"]
-    }
+    },
+    "ignoreDeprecations":"6.0"
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
 }

@@ -16,4 +16,7 @@ export * from './Map'
 export { default as ProTable } from './ProTable'
 export * from './ProTable'
 
+export { default as NxTable } from './NxTable'
+export * from './NxTable'
+
 export * from './install'

@@ -7,6 +7,7 @@
 import { ref, shallowRef, onMounted, onBeforeUnmount, provide, watch } from 'vue'
 import L from 'leaflet'
 import type { MapProps } from './types'
+import { markRaw } from 'vue';
 
 const props = withDefaults(defineProps<MapProps>(), {
   mapType: 'tdt',
@@ -74,12 +75,12 @@ const updateTileLayers = () => {
 }
 
 const initMap = () => {
-  map.value = L.map(mapRef.value!, {
+  map.value = markRaw(L.map(mapRef.value!, {
     center: props.center,
     zoom: props.zoom,
     ...props.options
   })
-
+)
   updateTileLayers()
 
   bindEvents()

@@ -1,7 +1,7 @@
 <template>
   <MapContainer
     ref="mapRef"
-    :center="[ 34.26, 108.94]"
+    :center="[34.26, 108.94]"
     :zoom="8"
     @ready="onMapReady"
     style="width: 100%; height: 100%"
@@ -18,7 +18,13 @@
     <MapFullscreen position="topright" style="top: 44px" />
 
     <!-- 单个标记 -->
-   <MapMarker :markers="[{ latLng: [ 34.26, 108.94], popup: '西安' }]" />
+    <MapMarker
+      :markers="[
+        { latLng: [30.5728, 104.0668], popup: '西安A' },
+        { latLng: [30.5728, 104.0668], popup: '西安B' },
+        { latLng: [30.5728, 104.0668], popup: '西安C' }
+      ]"
+    />
 
     <!-- 聚合点 -->
     <MapCluster :markers="clusterPoints" />
@@ -30,14 +36,13 @@
     <MapDraw />
 
     <!-- 西安区域覆盖 (GeoJSON) -->
-    <MapGeoJSON 
-      v-if="xianBoundary" 
-      :data="xianBoundary" 
-      :options="boundaryStyle"
-    />
+    <MapGeoJSON v-if="xianBoundary" :data="xianBoundary" :options="boundaryStyle" />
   </MapContainer>
 
-  <button @click="flyToShijiazhuang" style="position:absolute;top:10px;left:10px;z-index:1000">
+  <button
+    @click="flyToShijiazhuang"
+    style="position: absolute; top: 10px; left: 10px; z-index: 1000"
+  >
     飞到石家庄
   </button>
 </template>
@@ -58,6 +63,7 @@ import {
   type MapType
 } from '@nexus/ui'
 import shanGBoundary from './610000.geoJson?raw'
+import { onMounted } from 'vue'
 const MAP_KEY = 'df3ff37e0f577ada3ea370eea158425c'
 const mapRef = ref<InstanceType<typeof MapContainer> | null>(null)
 const currentMapType = ref<MapType>('tdt')
@@ -80,22 +86,24 @@ const onMapReady = (map: L.Map) => {
 
 // 聚合示例数据
 const clusterPoints: MarkerItem[] = [
-  { latLng: [ 34.26, 108.94], popup: '西安1' },
-  { latLng: [ 34.27, 108.95], popup: '西安2' },
-  { latLng: [ 34.28, 108.96], popup: '西安3' }
+  { latLng: [34.26, 108.94], popup: '西安1' },
+  { latLng: [34.27, 108.95], popup: '西安2' },
+  { latLng: [34.28, 108.96], popup: '西安3' }
 ]
 
 // 热力图示例数据
 const heatPoints: [number, number, number][] = [
-  [ 34.26, 108.94, 0.8], 
-  [ 34.27, 108.95, 0.5], 
-  [ 34.28, 108.96, 0.3]
+  [34.26, 108.94, 0.8],
+  [34.27, 108.95, 0.5],
+  [34.28, 108.96, 0.3]
 ]
 
 // flyTo 示例
 const flyToShijiazhuang = () => {
   mapRef.value?.flyTo([38.042, 114.514], 10)
 }
+
+onMounted(() => {})
 </script>
 
 <style scoped>
