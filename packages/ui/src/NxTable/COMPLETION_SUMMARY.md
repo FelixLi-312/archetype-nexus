@@ -3,6 +3,7 @@
 ## ✅ 完成内容
 
 ### 1. **核心目录结构重构**
+
 已将 `packages/ui/src/NxTable` 重新组织为专业的分层架构：
 
 ```
@@ -67,12 +68,14 @@ NxTable/
 ### 2. **子组件完全拆分**
 
 #### BaseTable 组件
+
 - 封装 vxe-table 基础功能
 - Prop: `maxHeight` - 表格最大高度
 - Export: `getVxeTable()` - 获取 vxe-table 实例
 - 支持完整的 slot 传递
 
 #### Toolbar 组件
+
 - **刷新按钮** - `@refresh` 事件
 - **添加按钮** - `@add` 事件
 - **快速搜索** - 带 `@search` 和 `update:search` 事件
@@ -82,29 +85,35 @@ NxTable/
 - **筛选按钮** - 切换搜索表单显隐
 
 #### SearchForm 组件
+
 - 可收/展的搜索表单容器
 - Prop: `visible` - 控制显示状态
 - Slot: 用于放置自定义搜索字段
 
 #### ColumnSetting 组件
+
 - 树形结构展示列配置
 - Props: `columns` 和 `checkedKeys`
 - Emits: `@check-change` - 列可见性变化事件
 - 支持多层级列分组
 
 #### TablePagination 组件
+
 - 基于 Element Plus Pagination 二次封装
 - Props: `options` - 包含 `change` 回调的配置对象
 - 自动处理页码和页容量变化
 
 #### Empty 组件
+
 - 空数据状态显示
 - Prop: `emptyText` - 自定义空状态文本
 
 ### 3. **Pro 编排层（ProTable.vue）**
+
 完全重写了 ProTable.vue，由之前的单体组件改为 **编排层**：
 
 **特点：**
+
 - 使用 `<script setup>` 现代 Vue 3 语法
 - 完整的 TypeScript 支持，无类型错误
 - 自动高度计算 - 基于容器和子组件高度
@@ -113,6 +122,7 @@ NxTable/
 - Debounce 防抖处理列刷新
 
 **Props 支持：**
+
 - `meClass` - 自定义样式类
 - `name` - 表格唯一标识
 - `toolbar` - 是否显示工具栏
@@ -142,14 +152,7 @@ NxTable/
 export { default as ProTable } from './ProTable.vue'
 
 // 子组件
-export {
-  BaseTable,
-  Toolbar,
-  SearchForm,
-  ColumnSetting,
-  Pagination,
-  Empty
-}
+export { BaseTable, Toolbar, SearchForm, ColumnSetting, Pagination, Empty }
 
 // 所有 Hooks
 export {
@@ -157,20 +160,12 @@ export {
   usePagination,
   useSearch,
   useColumns,
-  useToolbar,
+  useToolbar
   // ... 更多 hooks
 }
 
 // Core APIs
-export {
-  createTable,
-  onTableMounted,
-  onTableUnmounted,
-  createPlugin,
-  onEvent,
-  offEvent,
-  emitEvent
-}
+export { createTable, onTableMounted, onTableUnmounted, createPlugin, onEvent, offEvent, emitEvent }
 
 // 完整的类型系统
 export * from './types'
@@ -182,21 +177,25 @@ export { defaultProps, defaultColumns, defaultConfig }
 ## 🎯 架构优势
 
 ### ✨ **灵活性**
+
 - 可独立使用各个子组件
 - 通过 Hooks 组合实现复杂逻辑
 - 支持插件扩展
 
 ### 🚀 **可维护性**
+
 - 清晰的分层结构
 - 单一职责原则
 - 低耦合设计
 
 ### 💪 **可扩展性**
+
 - 完整的 TypeScript 类型支持
 - Hook 组合式 API
 - 插件系统
 
 ### 📝 **易用性**
+
 - 简洁的 API 设计
 - 丰富的成功示例
 - 详细的文档说明
@@ -208,6 +207,7 @@ export { defaultProps, defaultColumns, defaultConfig }
 ## 📚 文档
 
 已生成 `README.md` 包含：
+
 - 完整的目录结构说明
 - 核心设计原则解释
 - 主要组件的详细说明
@@ -227,6 +227,7 @@ export { defaultProps, defaultColumns, defaultConfig }
 ## 🎉 总结
 
 NxTable 从一个单体组件成功重构为专业的 **分层架构组件库**，具备：
+
 - ✅ 清晰的职责分离
 - ✅ 完整的类型系统
 - ✅ 灵活的扩展机制

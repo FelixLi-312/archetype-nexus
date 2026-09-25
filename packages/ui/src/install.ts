@@ -5,8 +5,8 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import { NxTable  } from './NxTable/install'
-// 引入 
+import { NxTable } from './NxTable/install'
+// 引入
 
 export function install(app: App) {
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

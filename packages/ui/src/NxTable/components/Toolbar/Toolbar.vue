@@ -48,7 +48,7 @@
           <template #default>
             <ul class="el-dropdown-menu">
               <li
-                v-for="(item, idx) in (exportMenu as ExportMenuItem[])"
+                v-for="(item, idx) in exportMenu as ExportMenuItem[]"
                 :key="idx"
                 class="el-dropdown-menu__item"
                 @click="$emit('export', item)"
@@ -69,11 +69,7 @@
         <slot name="tools" />
       </el-button-group>
 
-      <el-button
-        v-if="searchable"
-        :title="t('更多筛选')"
-        @click="$emit('toggle-search')"
-      >
+      <el-button v-if="searchable" :title="t('更多筛选')" @click="$emit('toggle-search')">
         <mel-icon-search />
       </el-button>
 
@@ -98,36 +94,36 @@ export default defineComponent({
     search: String,
     searchPlaceholder: {
       type: [String, Function],
-      default: '快捷搜索',
+      default: '快捷搜索'
     },
     searchable: {
       type: Boolean,
-      default: false,
+      default: false
     },
     showRefresh: {
       type: Boolean,
-      default: true,
+      default: true
     },
     showAdd: {
       type: Boolean,
-      default: true,
+      default: true
     },
     showColumnSetting: {
       type: Boolean,
-      default: true,
+      default: true
     },
     showTools: {
       type: Boolean,
-      default: true,
+      default: true
     },
     exportMenu: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     printable: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   emits: ['refresh', 'add', 'update:search', 'search', 'export', 'print', 'toggle-search'],
   setup() {
@@ -139,9 +135,9 @@ export default defineComponent({
     }
 
     return {
-      t,
+      t
     }
-  },
+  }
 })
 </script>
 

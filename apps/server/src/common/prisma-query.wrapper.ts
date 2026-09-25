@@ -2,17 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 export class PrismaQueryWrapper<T = any> {
-  private where: any = {};
-  private orderBy: any[] = [];
+  private where: any = {}
+  private orderBy: any[] = []
 
   /**
    * 等于 =
    */
   eq(column: keyof T | string, value: any): this {
     if (value !== undefined && value !== null) {
-      this.where[column] = value;
+      this.where[column] = value
     }
-    return this;
+    return this
   }
 
   /**
@@ -20,9 +20,9 @@ export class PrismaQueryWrapper<T = any> {
    */
   ne(column: keyof T | string, value: any): this {
     if (value !== undefined && value !== null) {
-      this.where[column] = { not: value };
+      this.where[column] = { not: value }
     }
-    return this;
+    return this
   }
 
   /**
@@ -30,9 +30,9 @@ export class PrismaQueryWrapper<T = any> {
    */
   like(column: keyof T | string, value: string): this {
     if (value) {
-      this.where[column] = { contains: value };
+      this.where[column] = { contains: value }
     }
-    return this;
+    return this
   }
 
   /**
@@ -40,9 +40,9 @@ export class PrismaQueryWrapper<T = any> {
    */
   gt(column: keyof T | string, value: any): this {
     if (value !== undefined && value !== null) {
-      this.where[column] = { gt: value };
+      this.where[column] = { gt: value }
     }
-    return this;
+    return this
   }
 
   /**
@@ -50,9 +50,9 @@ export class PrismaQueryWrapper<T = any> {
    */
   ge(column: keyof T | string, value: any): this {
     if (value !== undefined && value !== null) {
-      this.where[column] = { gte: value };
+      this.where[column] = { gte: value }
     }
-    return this;
+    return this
   }
 
   /**
@@ -60,9 +60,9 @@ export class PrismaQueryWrapper<T = any> {
    */
   lt(column: keyof T | string, value: any): this {
     if (value !== undefined && value !== null) {
-      this.where[column] = { lt: value };
+      this.where[column] = { lt: value }
     }
-    return this;
+    return this
   }
 
   /**
@@ -70,9 +70,9 @@ export class PrismaQueryWrapper<T = any> {
    */
   le(column: keyof T | string, value: any): this {
     if (value !== undefined && value !== null) {
-      this.where[column] = { lte: value };
+      this.where[column] = { lte: value }
     }
-    return this;
+    return this
   }
 
   /**
@@ -80,41 +80,41 @@ export class PrismaQueryWrapper<T = any> {
    */
   in(column: keyof T | string, values: any[]): this {
     if (values && values.length > 0) {
-      this.where[column] = { in: values };
+      this.where[column] = { in: values }
     }
-    return this;
+    return this
   }
 
   /**
    * 排序
    */
   orderByAsc(column: keyof T | string): this {
-    this.orderBy.push({ [column]: 'asc' });
-    return this;
+    this.orderBy.push({ [column]: 'asc' })
+    return this
   }
 
   orderByDesc(column: keyof T | string): this {
-    this.orderBy.push({ [column]: 'desc' });
-    return this;
+    this.orderBy.push({ [column]: 'desc' })
+    return this
   }
 
   /**
    * 复合 OR 逻辑
    */
   or(callback: (wrapper: PrismaQueryWrapper<T>) => void): this {
-    const subWrapper = new PrismaQueryWrapper<T>();
-    callback(subWrapper);
+    const subWrapper = new PrismaQueryWrapper<T>()
+    callback(subWrapper)
     if (!this.where.OR) {
-      this.where.OR = [];
+      this.where.OR = []
     }
-    this.where.OR.push(subWrapper.build().where);
-    return this;
+    this.where.OR.push(subWrapper.build().where)
+    return this
   }
 
   build() {
     return {
       where: this.where,
-      orderBy: this.orderBy.length > 0 ? this.orderBy : undefined,
-    };
+      orderBy: this.orderBy.length > 0 ? this.orderBy : undefined
+    }
   }
 }

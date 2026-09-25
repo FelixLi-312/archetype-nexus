@@ -15,12 +15,12 @@ export default defineComponent({
   props: {
     emptyText: {
       type: String,
-      default: '暂无数据',
-    },
+      default: '暂无数据'
+    }
   },
   setup() {
     return {}
-  },
+  }
 })
 </script>
 

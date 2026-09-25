@@ -8,11 +8,23 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,vue,js,jsx,json,scss,css,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,vue,js,jsx,json,scss,css,md}\"",
     "react": "turbo run dev --filter=@nexus/react-web",
     "vue": "turbo run dev --filter=@nexus/vue-admin",
     "docs": "turbo run dev --filter=@nexus/docs",
     "server": "turbo run start:dev --filter=@nexus/server",
-    "server:prisma": "pnpm --filter @nexus/server prisma generate"
+    "server:prisma": "pnpm --filter @nexus/server prisma generate",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,vue,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,scss,css,md}": [
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -20,20 +32,16 @@
   "packageManager": "pnpm@10.32.1",
   "devDependencies": {
     "@commitlint/config-conventional": "^20.4.4",
+    "@nexus/eslint-config": "workspace:*",
     "@storybook/react-vite": "^10.2.19",
     "@storybook/vue3-vite": "^10.2.19",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.57.0",
-    "@typescript-eslint/parser": "^8.57.0",
     "@vitejs/plugin-react": "^6.0.0",
     "@vitejs/plugin-vue": "^6.0.5",
     "commitlint": "^20.4.4",
-    "concurrently": "^9.2.1",
     "eslint": "^10.0.3",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-vue": "^10.8.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "3.8.1",

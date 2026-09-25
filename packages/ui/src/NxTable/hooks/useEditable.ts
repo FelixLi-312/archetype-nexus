@@ -6,6 +6,6 @@ export function useEditable() {
     editable,
     toggleEditable() {
       editable.value = !editable.value
-    },
+    }
   }
 }

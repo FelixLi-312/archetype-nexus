@@ -12,6 +12,6 @@ export function usePagination() {
     },
     setSize(size: number) {
       pageSize.value = size
-    },
+    }
   }
 }

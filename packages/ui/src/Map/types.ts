@@ -7,7 +7,6 @@ export interface MarkerItem {
   popup?: string
 }
 
-
 export interface MapProps {
   /** 地图中心点 [lat, lng] */
   center: [number, number]
@@ -26,7 +25,7 @@ export interface MapProps {
   /** 防抖延迟时间 (ms)，用于 resize 事件 */
   resizeDebounce?: number
   // 地图类型  默认 osm tdt： 天地图  gaode： 高德地图
-  mapType?: MapType // 'osm' | 'tdt' | 'gaode' 
+  mapType?: MapType // 'osm' | 'tdt' | 'gaode'
   /** 地图 API 密钥 (如需要) */
   apiKey: string
 }

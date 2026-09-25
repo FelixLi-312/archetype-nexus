@@ -41,7 +41,9 @@
         </template>
         <div class="column-setting-list" ref="columnListRef">
           <div v-for="(col, index) in columns" :key="col.prop || index" class="column-setting-item">
-            <el-icon class="drag-handle" style="cursor: move; margin-right: 8px"><Operation /></el-icon>
+            <el-icon class="drag-handle" style="cursor: move; margin-right: 8px"
+              ><Operation
+            /></el-icon>
             <el-checkbox v-model="col.visible" :label="col.label" />
           </div>
         </div>
@@ -54,7 +56,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import {  Operation } from '@element-plus/icons-vue'
+import { Operation } from '@element-plus/icons-vue'
 import type { ToolbarButtonConfig, ColumnConfig } from '../types'
 import Sortable, { SortableEvent } from 'sortablejs'
 

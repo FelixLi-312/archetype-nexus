@@ -2,48 +2,47 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { NotFoundException } from '@nestjs/common'
+import { PrismaService } from '../prisma/prisma.service'
 
 export class BaseService<T, CreateInput, UpdateInput> {
   constructor(
     protected readonly prisma: PrismaService,
-    protected readonly modelName: string,
+    protected readonly modelName: string
   ) {}
 
   protected get model() {
-    const propertyName =
-      this.modelName.charAt(0).toLowerCase() + this.modelName.slice(1);
-    return (this.prisma as any)[propertyName];
+    const propertyName = this.modelName.charAt(0).toLowerCase() + this.modelName.slice(1)
+    return (this.prisma as any)[propertyName]
   }
 
   /**
    * 分页查询
    */
   async findPage(params: {
-    skip?: number;
-    take?: number;
-    where?: any;
-    orderBy?: any;
+    skip?: number
+    take?: number
+    where?: any
+    orderBy?: any
   }): Promise<{ items: T[]; total: number }> {
-    const { skip, take, where, orderBy } = params;
+    const { skip, take, where, orderBy } = params
     const [items, total] = await Promise.all([
       this.model.findMany({
         skip,
         take,
         where,
-        orderBy,
+        orderBy
       }),
-      this.model.count({ where }),
-    ]);
-    return { items, total };
+      this.model.count({ where })
+    ])
+    return { items, total }
   }
 
   /**
    * 全量查询
    */
   async findAll(params?: { where?: any; orderBy?: any }): Promise<T[]> {
-    return await this.model.findMany(params);
+    return await this.model.findMany(params)
   }
 
   /**
@@ -51,12 +50,12 @@ export class BaseService<T, CreateInput, UpdateInput> {
    */
   async findOne(id: number): Promise<T> {
     const item = await this.model.findUnique({
-      where: { id },
-    });
+      where: { id }
+    })
     if (!item) {
-      throw new NotFoundException(`${this.modelName} with id ${id} not found`);
+      throw new NotFoundException(`${this.modelName} with id ${id} not found`)
     }
-    return item;
+    return item
   }
 
   /**
@@ -64,8 +63,8 @@ export class BaseService<T, CreateInput, UpdateInput> {
    */
   async create(data: CreateInput): Promise<T> {
     return await this.model.create({
-      data,
-    });
+      data
+    })
   }
 
   /**
@@ -75,24 +74,21 @@ export class BaseService<T, CreateInput, UpdateInput> {
     try {
       return await this.model.update({
         where: { id },
-        data,
-      });
+        data
+      })
     } catch {
-      throw new NotFoundException(`${this.modelName} with id ${id} not found`);
+      throw new NotFoundException(`${this.modelName} with id ${id} not found`)
     }
   }
 
   /**
    * 批量修改
    */
-  async updateBatch(
-    ids: number[],
-    data: UpdateInput,
-  ): Promise<{ count: number }> {
+  async updateBatch(ids: number[], data: UpdateInput): Promise<{ count: number }> {
     return await this.model.updateMany({
       where: { id: { in: ids } },
-      data,
-    });
+      data
+    })
   }
 
   /**
@@ -101,10 +97,10 @@ export class BaseService<T, CreateInput, UpdateInput> {
   async remove(id: number): Promise<T> {
     try {
       return await this.model.delete({
-        where: { id },
-      });
+        where: { id }
+      })
     } catch {
-      throw new NotFoundException(`${this.modelName} with id ${id} not found`);
+      throw new NotFoundException(`${this.modelName} with id ${id} not found`)
     }
   }
 
@@ -113,7 +109,7 @@ export class BaseService<T, CreateInput, UpdateInput> {
    */
   async removeBatch(ids: number[]): Promise<{ count: number }> {
     return await this.model.deleteMany({
-      where: { id: { in: ids } },
-    });
+      where: { id: { in: ids } }
+    })
   }
 }

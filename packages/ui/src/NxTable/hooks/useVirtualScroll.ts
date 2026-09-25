@@ -6,6 +6,6 @@ export function useVirtualScroll() {
     enabled,
     toggleVirtualScroll() {
       enabled.value = !enabled.value
-    },
+    }
   }
 }

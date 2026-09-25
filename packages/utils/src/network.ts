@@ -6,11 +6,14 @@
 export function getQueryParams(url: string) {
   const queryString = url.split('?')[1]
   if (!queryString) return {}
-  return queryString.split('&').reduce((params, param) => {
-    const [key, value] = param.split('=')
-    params[key] = decodeURIComponent(value)
-    return params
-  }, {} as Record<string, string>)
+  return queryString.split('&').reduce(
+    (params, param) => {
+      const [key, value] = param.split('=')
+      params[key] = decodeURIComponent(value)
+      return params
+    },
+    {} as Record<string, string>
+  )
 }
 /**
  * 拼接 URL 参数
@@ -47,8 +50,6 @@ export function downloadFile(url: string, filename: string) {
 export function fetchWithTimeout(url: string, options: RequestInit, timeout: number) {
   return Promise.race([
     fetch(url, options),
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('请求超时')), timeout)
-    )
+    new Promise((_, reject) => setTimeout(() => reject(new Error('请求超时')), timeout))
   ])
 }

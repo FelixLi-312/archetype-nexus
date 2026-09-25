@@ -5,61 +5,57 @@
         <h2 class="title">创建账号</h2>
         <p class="subtitle">欢迎加入 Nexus Archetype</p>
       </div>
-      
-      <el-form 
-        ref="registerFormRef" 
-        :model="registerForm" 
-        :rules="registerRules" 
+
+      <el-form
+        ref="registerFormRef"
+        :model="registerForm"
+        :rules="registerRules"
         class="register-form"
         label-position="top"
       >
         <el-form-item label="用户名" prop="username">
-          <el-input 
-            v-model="registerForm.username" 
-            placeholder="请输入用户名" 
+          <el-input
+            v-model="registerForm.username"
+            placeholder="请输入用户名"
             :prefix-icon="User"
           />
         </el-form-item>
-        
+
         <el-form-item label="邮箱" prop="email">
-          <el-input 
-            v-model="registerForm.email" 
-            placeholder="请输入邮箱" 
-            :prefix-icon="Message"
-          />
+          <el-input v-model="registerForm.email" placeholder="请输入邮箱" :prefix-icon="Message" />
         </el-form-item>
-        
+
         <el-form-item label="密码" prop="password">
-          <el-input 
-            v-model="registerForm.password" 
-            type="password" 
-            placeholder="请输入密码" 
+          <el-input
+            v-model="registerForm.password"
+            type="password"
+            placeholder="请输入密码"
             :prefix-icon="Lock"
             show-password
           />
         </el-form-item>
-        
+
         <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input 
-            v-model="registerForm.confirmPassword" 
-            type="password" 
-            placeholder="请再次输入密码" 
+          <el-input
+            v-model="registerForm.confirmPassword"
+            type="password"
+            placeholder="请再次输入密码"
             :prefix-icon="Lock"
             show-password
           />
         </el-form-item>
-        
+
         <el-form-item>
-          <el-button 
-            type="primary" 
-            :loading="loading" 
-            class="register-button" 
+          <el-button
+            type="primary"
+            :loading="loading"
+            class="register-button"
             @click="handleRegister"
           >
             立即注册
           </el-button>
         </el-form-item>
-        
+
         <div class="login-link">
           已有账号？<el-link type="primary" @click="$router.push('/login')">立即登录</el-link>
         </div>
@@ -109,16 +105,14 @@ const registerRules = {
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 6, message: '密码长度不能小于 6 位', trigger: 'blur' }
   ],
-  confirmPassword: [
-    { validator: validatePass2, trigger: 'blur' }
-  ]
+  confirmPassword: [{ validator: validatePass2, trigger: 'blur' }]
 }
 
 const handleRegister = async () => {
   if (!registerFormRef.value) return
-  
+
   await registerFormRef.value.validate()
-  
+
   loading.value = true
   try {
     await userApi.register({
@@ -143,31 +137,31 @@ const handleRegister = async () => {
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  
+
   .register-box {
     width: 450px;
     padding: 40px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    
+
     .register-header {
       text-align: center;
       margin-bottom: 30px;
-      
+
       .title {
         margin: 0;
         font-size: 28px;
         color: #333;
       }
-      
+
       .subtitle {
         margin-top: 10px;
         color: #666;
         font-size: 14px;
       }
     }
-    
+
     .register-form {
       .register-button {
         width: 100%;
@@ -175,7 +169,7 @@ const handleRegister = async () => {
         font-size: 16px;
         margin-top: 10px;
       }
-      
+
       .login-link {
         text-align: center;
         margin-top: 20px;

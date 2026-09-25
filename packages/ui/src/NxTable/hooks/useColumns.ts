@@ -6,6 +6,6 @@ export function useColumns(columns: any[] = []) {
     tableColumns,
     setColumns(next: any[]) {
       tableColumns.value = next
-    },
+    }
   }
 }

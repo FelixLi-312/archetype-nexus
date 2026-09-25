@@ -82,29 +82,24 @@ const paginationOptions = ref({
   layout: 'total, sizes, prev, pager, next, jumper'
 })
 
-const handleQuickSearch = (value: string) => {
-  console.log('快速搜索:', value)
-  // 实现搜索逻辑
+const handleQuickSearch = (_value: string) => {
+  // TODO: 实现快速搜索逻辑
 }
 
 const handleRefresh = () => {
-  console.log('刷新数据')
-  // 实现刷新逻辑
+  // TODO: 实现刷新逻辑
 }
 
 const handleAdd = () => {
-  console.log('添加数据')
-  // 实现添加逻辑
+  // TODO: 实现添加逻辑
 }
 
 const handleCustomAction = () => {
-  console.log('自定义操作')
-  // 实现自定义逻辑
+  // TODO: 实现自定义操作逻辑
 }
 
 const handleSearch = () => {
-  console.log('高级搜索:', searchForm)
-  // 实现高级搜索逻辑
+  // TODO: 实现高级搜索逻辑
 }
 </script>
 

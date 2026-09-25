@@ -2,18 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import {
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-  ParseIntPipe,
-} from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
-import { PrismaQueryWrapper } from './prisma-query.wrapper';
+import { Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common'
+import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger'
+import { PrismaQueryWrapper } from './prisma-query.wrapper'
 
 export class BaseController<T, CreateInput, UpdateInput> {
   constructor(protected readonly service: any) {}
@@ -22,10 +13,10 @@ export class BaseController<T, CreateInput, UpdateInput> {
   @ApiOperation({ summary: 'Create a new record' })
   @ApiResponse({
     status: 201,
-    description: 'The record has been successfully created.',
+    description: 'The record has been successfully created.'
   })
   create(@Body() createDto: CreateInput): Promise<T> {
-    return this.service.create(createDto);
+    return this.service.create(createDto)
   }
 
   @Get('page')
@@ -33,42 +24,42 @@ export class BaseController<T, CreateInput, UpdateInput> {
   findPage(
     @Query('current', new ParseIntPipe({ optional: true })) current = 1,
     @Query('pageSize', new ParseIntPipe({ optional: true })) pageSize = 10,
-    @Query('keyword') keyword?: string,
+    @Query('keyword') keyword?: string
   ): Promise<{ items: T[]; total: number }> {
-    const skip = (current - 1) * pageSize;
-    const take = pageSize;
+    const skip = (current - 1) * pageSize
+    const take = pageSize
 
     // 使用 QueryWrapper 构建动态查询逻辑
-    const wrapper = new PrismaQueryWrapper<T>();
+    const wrapper = new PrismaQueryWrapper<T>()
     if (keyword) {
       wrapper.or((q) => {
         // 尝试匹配通用字段（根据业务扩展）
-        q.like('title' as keyof T, keyword);
-        q.like('name' as keyof T, keyword);
-        q.like('username' as keyof T, keyword);
-      });
+        q.like('title' as keyof T, keyword)
+        q.like('name' as keyof T, keyword)
+        q.like('username' as keyof T, keyword)
+      })
     }
-    wrapper.orderByDesc('createdAt' as keyof T);
+    wrapper.orderByDesc('createdAt' as keyof T)
 
-    const query = wrapper.build();
+    const query = wrapper.build()
     return this.service.findPage({
       skip,
       take,
       where: query.where,
-      orderBy: query.orderBy as any,
-    }) as Promise<{ items: T[]; total: number }>;
+      orderBy: query.orderBy as any
+    }) as Promise<{ items: T[]; total: number }>
   }
 
   @Get('list')
   @ApiOperation({ summary: 'Get all records without pagination' })
   findAll(): Promise<T[]> {
-    return this.service.findAll();
+    return this.service.findAll()
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get record by id' })
   findOne(@Param('id', ParseIntPipe) id: number): Promise<T> {
-    return this.service.findOne(id);
+    return this.service.findOne(id)
   }
 
   @Patch('batch')
@@ -78,21 +69,18 @@ export class BaseController<T, CreateInput, UpdateInput> {
       type: 'object',
       properties: {
         ids: { type: 'array', items: { type: 'number' } },
-        data: { type: 'object' },
-      },
-    },
+        data: { type: 'object' }
+      }
+    }
   })
   updateBatch(@Body() body: { ids: number[]; data: UpdateInput }) {
-    return this.service.updateBatch(body.ids, body.data);
+    return this.service.updateBatch(body.ids, body.data)
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update record by id' })
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateDto: UpdateInput,
-  ): Promise<T> {
-    return this.service.update(id, updateDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateDto: UpdateInput): Promise<T> {
+    return this.service.update(id, updateDto)
   }
 
   @Delete('batch')
@@ -100,16 +88,16 @@ export class BaseController<T, CreateInput, UpdateInput> {
   @ApiBody({
     schema: {
       type: 'object',
-      properties: { ids: { type: 'array', items: { type: 'number' } } },
-    },
+      properties: { ids: { type: 'array', items: { type: 'number' } } }
+    }
   })
   removeBatch(@Body() body: { ids: number[] }) {
-    return this.service.removeBatch(body.ids);
+    return this.service.removeBatch(body.ids)
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete record by id' })
   remove(@Param('id', ParseIntPipe) id: number): Promise<T> {
-    return this.service.remove(id);
+    return this.service.remove(id)
   }
 }

@@ -20,8 +20,8 @@ export default defineComponent({
   props: {
     maxHeight: {
       type: [Number, String],
-      default: '100%',
-    },
+      default: '100%'
+    }
   },
   setup(props, { expose }) {
     const vxeTableRef = useTemplateRef<VxeTableInstance>('vxeTableRef')
@@ -32,12 +32,12 @@ export default defineComponent({
 
     expose({
       vxeTableRef,
-      getVxeTable,
+      getVxeTable
     })
 
     return {
-      vxeTableRef,
+      vxeTableRef
     }
-  },
+  }
 })
 </script>

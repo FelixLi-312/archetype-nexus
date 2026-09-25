@@ -10,6 +10,6 @@ export function useSort() {
     setSort(field: string, order: 'asc' | 'desc') {
       sortBy.value = field
       sortOrder.value = order
-    },
+    }
   }
 }

@@ -9,6 +9,6 @@ export function useLoading() {
     },
     finish() {
       loading.value = false
-    },
+    }
   }
 }

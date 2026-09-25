@@ -1,12 +1,7 @@
 <template>
   <div class="span-example">
     <h3>合并单元格示例</h3>
-    <NxProTable
-      :data="tableData"
-      :toolbar="true"
-      :span-method="spanMethod"
-      name="SpanTable"
-    >
+    <NxProTable :data="tableData" :toolbar="true" :span-method="spanMethod" name="SpanTable">
       <vxe-column type="seq" title="序号" width="60" />
       <vxe-column field="group" title="分组" />
       <vxe-column field="name" title="名称" />
@@ -24,7 +19,7 @@ const tableData = ref([
   { id: 2, group: '组A', name: '项目2', value: 200 },
   { id: 3, group: '组A', name: '项目3', value: 300 },
   { id: 4, group: '组B', name: '项目4', value: 400 },
-  { id: 5, group: '组B', name: '项目5', value: 500 },
+  { id: 5, group: '组B', name: '项目5', value: 500 }
 ])
 
 const spanMethod = ({ rowIndex, columnIndex }: any) => {

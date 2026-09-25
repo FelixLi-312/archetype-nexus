@@ -6,6 +6,6 @@ export function useTree() {
     treeConfig,
     setTreeConfig(config: Record<string, any>) {
       treeConfig.value = config
-    },
+    }
   }
 }

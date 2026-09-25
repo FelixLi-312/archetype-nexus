@@ -1,12 +1,3 @@
-// packages/ui/src/index.ts
-// export * from './DynamicForm/index.vue'
-// export * from './Map/index.vue'
-// export * from './ProTable/index.vue'
-
-// 如果想按模块导出
-// export * as DynamicForm from './DynamicForm'
-// export * as Map from './Map'
-// export * as ProTable from './ProTable'
 export { default as DynamicForm } from './DynamicForm'
 export * from './DynamicForm'
 
@@ -18,5 +9,7 @@ export * from './ProTable'
 
 export { default as NxTable } from './NxTable'
 export * from './NxTable'
+
+export * from './composables/useRequest'
 
 export * from './install'

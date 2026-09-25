@@ -1,4 +1,4 @@
-// DynamicForm/index.ts 
+// DynamicForm/index.ts
 import DynamicForm from './index.vue'
 import type { DynamicFormProps, DynamicFormExpose, FormItemSchema } from './types'
 

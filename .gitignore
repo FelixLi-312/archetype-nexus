@@ -7,6 +7,13 @@ dist/
 build/
 .next/
 out/
+storybook-static/
+
+# Storybook build artifacts
+apps/docs/storybook-static/
+
+# Coverage
+coverage/
 
 # Logs
 *.log
@@ -36,3 +43,12 @@ pnpm-debug.log*
 
 # Husky local config
 .husky/_/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# NestJS
+apps/server/dist/
+
+# Prisma
+prisma/migrations/**/migration_lock.toml

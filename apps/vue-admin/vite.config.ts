@@ -9,13 +9,13 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
-        changeOrigin: true,
+        changeOrigin: true
         // rewrite: (path) => path.replace(/^\/api/, '') // 因为后端加了 globalPrefix('api')，所以不需要 rewrite
       }
     }
   },
   resolve: {
-     alias: {
+    alias: {
       '@': path.resolve(__dirname, 'src'),
       '@nexus/ui': path.resolve(__dirname, '../../packages/ui/src'),
       '@nexus/utils': path.resolve(__dirname, '../../packages/utils/src')

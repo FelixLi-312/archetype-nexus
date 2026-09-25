@@ -143,7 +143,11 @@ const requestData = async () => {
       props.config.pagination.total = total
     }
   } catch (error) {
-    console.error('ProTable Request Error:', error)
+    const errMsg = error instanceof Error ? error.message : 'Request failed'
+    emit('request-error', error)
+    // eslint-disable-next-line no-console
+    console.error('[ProTable] Request Error:', error)
+    ElMessage.error(errMsg)
   } finally {
     loading.value = false
   }
@@ -239,7 +243,8 @@ const handleExport = () => {
     const loop = (list: ColumnConfig[]) => {
       list.forEach((col) => {
         // 优先取 exportVisible，其次取 visible
-        const isVisible = col.exportVisible !== undefined ? col.exportVisible : col.visible !== false
+        const isVisible =
+          col.exportVisible !== undefined ? col.exportVisible : col.visible !== false
         if (!isVisible) return
 
         if (col.children && col.children.length) {
@@ -270,13 +275,13 @@ const handleExport = () => {
     const item: any = {}
     leafColumns.forEach((col) => {
       if (!col.prop) return
-      
+
       const val = col.prop.split('.').reduce((o, i) => o?.[i], row)
-      
+
       // 1. 优先使用自定义导出格式化函数
       if (col.exportFormat) {
         item[col.prop] = col.exportFormat(row)
-      } 
+      }
       // 2. 其次使用 valueEnum 枚举映射
       else if (col.valueEnum && val !== undefined) {
         const enumItem = col.valueEnum[String(val)]
@@ -300,7 +305,9 @@ const handleExport = () => {
 
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1')
-  const fileName  = props.config.exportFileName ? props.config.exportFileName + '.xlsx' : `Export_${Date.now()}.xlsx`
+  const fileName = props.config.exportFileName
+    ? props.config.exportFileName + '.xlsx'
+    : `Export_${Date.now()}.xlsx`
   XLSX.writeFile(wb, fileName)
   emit('export')
 }

@@ -22,12 +22,12 @@ export default defineComponent({
   props: {
     columns: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     checkedKeys: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   emits: ['check-change'],
   setup(props, { emit }) {
@@ -38,11 +38,11 @@ export default defineComponent({
     return {
       treeProps: {
         label: (item: any) => (item.type === 'seq' ? '#' : item.title || item.field),
-        children: 'children',
+        children: 'children'
       },
-      handleCheckChange,
+      handleCheckChange
     }
-  },
+  }
 })
 </script>
 

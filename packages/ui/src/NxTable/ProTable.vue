@@ -10,7 +10,7 @@
       :show-add="true"
       :show-column-setting="customColumn"
       :show-tools="customColumn || (exportMenu?.length ?? 0) > 0 || !!print"
-      :export-menu="(exportMenu as any)"
+      :export-menu="exportMenu as any"
       :printable="!!print"
       @search="handleQuickSearch"
       @update:search="$emit('update:quickSearch', $event)"
@@ -45,7 +45,7 @@
     <NxPagination
       v-if="paginationOptions && paginationOptions.change"
       ref="paginationRef"
-      :options="(paginationOptions as any)"
+      :options="paginationOptions as any"
       class="nx-table-pagination"
     />
   </div>
@@ -89,9 +89,9 @@ const props = withDefaults(defineProps<Props>(), {
   print: false,
   defaultShowSearch: false,
   exportMenu: () => [
-    { label: 'CSV', handle: ('csv' as any) },
-    { label: 'HTML', handle: ('html' as any) },
-  ],
+    { label: 'CSV', handle: 'csv' as any },
+    { label: 'HTML', handle: 'html' as any }
+  ]
 })
 
 const emit = defineEmits<{
@@ -147,9 +147,9 @@ const handleExport = (item: ExportMenuItem) => {
       type: item.handle as any,
       filename: item.filename || props.name,
       data:
-        vxeTable.getCheckboxRecords?.().length ?? 0 > 0
+        (vxeTable.getCheckboxRecords?.().length ?? 0 > 0)
           ? vxeTable.getCheckboxRecords?.()
-          : undefined,
+          : undefined
     })
   } else if (item.handle) {
     item.handle(vxeTable, item.filename || props.name || 'export')
@@ -166,12 +166,12 @@ const handlePrint = () => {
       {
         sheetName: props.name,
         data:
-          vxeTable.getCheckboxRecords?.().length ?? 0 > 0
+          (vxeTable.getCheckboxRecords?.().length ?? 0 > 0)
             ? vxeTable.getCheckboxRecords?.()
-            : undefined,
+            : undefined
       },
-      typeof props.print === 'boolean' ? {} : props.print,
-    ),
+      typeof props.print === 'boolean' ? {} : props.print
+    )
   )
 }
 
@@ -199,7 +199,7 @@ onMounted(async () => {
     try {
       const { collectColumn: cols, fullColumn } = vxeTable.getTableColumn?.() || {
         collectColumn: [],
-        fullColumn: [],
+        fullColumn: []
       }
       collectColumn.value = cols
       defaultChecked.value = fullColumn
@@ -218,7 +218,7 @@ defineExpose({
   },
   refresh() {
     emit('refresh')
-  },
+  }
 })
 </script>
 

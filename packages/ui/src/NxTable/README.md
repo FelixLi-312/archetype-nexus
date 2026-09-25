@@ -120,17 +120,20 @@ src/NxTable/
 ## 🎯 核心设计原则
 
 ### 1. **分层架构**
+
 - **编排层**：ProTable.vue - 组织和管理子组件
 - **组件层**：展示组件 - BaseTable、Toolbar、SearchForm 等
 - **逻辑层**：Hooks - 可复用的业务逻辑
 - **核心层**：Core - 表格实例创建、生命周期、事件系统
 
 ### 2. **独立职责**
+
 - 每个子组件只负责单一功能
 - 通过 Props + Emits 进行通信
 - 降低耦合度，提高可维护性
 
 ### 3. **可扩展性**
+
 - 插件系统支持功能扩展
 - Hook 组合实现复杂逻辑
 - 上下文 Context 传递全局状态
@@ -138,6 +141,7 @@ src/NxTable/
 ## 💻 主要组件
 
 ### ProTable（编排层）
+
 ```vue
 <NxProTable
   :data="tableData"
@@ -159,6 +163,7 @@ src/NxTable/
 ```
 
 ### BaseTable（基础表格）
+
 ```vue
 <NxBaseTable ref="tableRef" :max-height="500">
   <vxe-column field="name" title="名称" />
@@ -166,6 +171,7 @@ src/NxTable/
 ```
 
 ### Toolbar（工具栏）
+
 - 刷新按钮
 - 添加按钮
 - 快速搜索
@@ -174,14 +180,17 @@ src/NxTable/
 - 列设置弹窗
 
 ### SearchForm（搜索表单）
+
 - 可展/缩
 - 支持自定义表单内容
 
 ### ColumnSetting（列设置）
+
 - 列的显示/隐藏
 - 通过树形结构管理
 
 ### Pagination（分页）
+
 - 基于 Element Plus 封装
 - 支持页码和页容量切换
 
@@ -220,6 +229,7 @@ export { defaultProps, defaultColumns, defaultConfig }
 ## 📝 使用示例
 
 ### 基础示例
+
 ```vue
 <script setup>
 import { ref } from 'vue'
@@ -227,7 +237,7 @@ import { NxProTable } from '@nexus/ui'
 
 const data = ref([
   { id: 1, name: '张三', age: 25 },
-  { id: 2, name: '李四', age: 30 },
+  { id: 2, name: '李四', age: 30 }
 ])
 </script>
 
@@ -241,6 +251,7 @@ const data = ref([
 ```
 
 ### 完整示例（见 examples/full-demo.vue）
+
 - 搜索表单
 - 工具栏
 - 表格数据

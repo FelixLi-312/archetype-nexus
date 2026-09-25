@@ -9,7 +9,7 @@ import type { PersistenceOptions } from 'pinia-plugin-persistedstate'
 const piniaPersistConfig = (key: string, _paths?: string[]) => {
   const persist: PersistenceOptions = {
     key,
-    storage: localStorage,
+    storage: localStorage
   }
   return persist
 }

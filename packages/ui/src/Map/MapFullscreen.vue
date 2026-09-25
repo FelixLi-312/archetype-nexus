@@ -18,14 +18,14 @@ const isFullscreen = ref(false)
 const containerRef = ref<HTMLElement | null>(null)
 
 const toggleFullscreen = () => {
-  const element = props.target 
-    ? document.querySelector(props.target) 
+  const element = props.target
+    ? document.querySelector(props.target)
     : containerRef.value?.parentElement
 
   if (!element) return
 
   if (!document.fullscreenElement) {
-    element.requestFullscreen().catch(err => {
+    element.requestFullscreen().catch((err) => {
       console.error(`Error attempting to enable full-screen mode: ${err.message}`)
     })
   } else {
@@ -48,12 +48,22 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="containerRef" :class="['map-fullscreen', position]">
-    <div class="fullscreen-btn" @click="toggleFullscreen" :title="isFullscreen ? '退出全屏' : '全屏'">
+    <div
+      class="fullscreen-btn"
+      @click="toggleFullscreen"
+      :title="isFullscreen ? '退出全屏' : '全屏'"
+    >
       <svg v-if="!isFullscreen" viewBox="0 0 24 24" width="20" height="20">
-        <path fill="currentColor" d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z" />
+        <path
+          fill="currentColor"
+          d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z"
+        />
       </svg>
       <svg v-else viewBox="0 0 24 24" width="20" height="20">
-        <path fill="currentColor" d="M14,14H19V16H16V19H14V14M5,14H10V19H8V16H5V14M8,5H10V10H5V8H8V5M19,8V10H14V5H16V8H19Z" />
+        <path
+          fill="currentColor"
+          d="M14,14H19V16H16V19H14V14M5,14H10V19H8V16H5V14M8,5H10V10H5V8H8V5M19,8V10H14V5H16V8H19Z"
+        />
       </svg>
     </div>
   </div>
@@ -66,10 +76,22 @@ onBeforeUnmount(() => {
   margin: 10px;
 }
 
-.topright { top: 44px; right: 0; } /* 避开复位按钮 */
-.topleft { top: 0; left: 0; }
-.bottomright { bottom: 0; right: 0; }
-.bottomleft { bottom: 0; left: 0; }
+.topright {
+  top: 44px;
+  right: 0;
+} /* 避开复位按钮 */
+.topleft {
+  top: 0;
+  left: 0;
+}
+.bottomright {
+  bottom: 0;
+  right: 0;
+}
+.bottomleft {
+  bottom: 0;
+  left: 0;
+}
 
 .fullscreen-btn {
   width: 34px;
@@ -80,7 +102,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   color: #333;
 }
 

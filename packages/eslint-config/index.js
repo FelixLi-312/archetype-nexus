@@ -5,11 +5,17 @@ import { nestConfig } from './nest.js'
 
 export { baseConfig, reactConfig, vueConfig, nestConfig }
 
-export default [
-  {
-    ignores: ['**/dist/**', '**/node_modules/**', '**/storybook-static/**', '**/.turbo/**', '**/public/**'],
-  },
-  baseConfig,
-  reactConfig,
-  vueConfig,
-]
+export const ignores = {
+  ignores: [
+    '**/dist/**',
+    '**/node_modules/**',
+    '**/storybook-static/**',
+    '**/.turbo/**',
+    '**/public/**',
+    '**/build/**',
+    '**/coverage/**',
+    '**/*.config.{js,ts,mjs,cjs}'
+  ]
+}
+
+export default [ignores, baseConfig]

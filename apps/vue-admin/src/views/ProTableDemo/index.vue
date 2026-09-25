@@ -7,10 +7,7 @@
         </div>
       </template>
 
-      <ProTable
-        ref="tableRef"
-        :config="tableConfig"
-      >
+      <ProTable ref="tableRef" :config="tableConfig">
         <!-- 自定义列插槽 -->
         <template #status="{ row }">
           <el-tag :type="getStatusType(row.status)">
@@ -37,7 +34,7 @@ const tableRef = ref()
 const mockApi = async (params: any) => {
   console.log('请求参数:', params)
   // 模拟延迟
-  await new Promise(resolve => setTimeout(resolve, 800))
+  await new Promise((resolve) => setTimeout(resolve, 800))
 
   const total = 50
   const data = Array.from({ length: params.size }).map((_, index) => ({
@@ -59,18 +56,18 @@ const tableConfig = reactive<ProTableConfig>({
     { prop: 'name', label: '用户名', minWidth: 120 },
     { prop: 'age', label: '年龄', width: 80 },
     { prop: 'email', label: '邮箱', minWidth: 180 },
-    { 
-      prop: 'status', 
-      label: '状态', 
-      width: 100, 
+    {
+      prop: 'status',
+      label: '状态',
+      width: 100,
       slot: 'status',
-      exportFormat: (row) => row.status === 1 ? '启用' : '禁用'
+      exportFormat: (row) => (row.status === 1 ? '启用' : '禁用')
     },
     { prop: 'createTime', label: '创建时间', width: 150 },
-    { 
-      prop: 'exportOnly', 
-      label: '导出备注', 
-      visible: false, 
+    {
+      prop: 'exportOnly',
+      label: '导出备注',
+      visible: false,
       exportVisible: true,
       exportFormat: () => '这是一条导出专用数据'
     }

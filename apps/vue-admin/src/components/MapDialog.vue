@@ -10,14 +10,14 @@
           left: `${left}px`,
           top: `${top}px`,
           width: `${width}px`,
-          height: `${height}px`,
+          height: `${height}px`
         }"
       >
         <!-- 连线层 -->
         <div class="line-container">
           <div class="line-img"></div>
         </div>
-        
+
         <!-- 内容插槽 -->
         <slot></slot>
       </div>
@@ -64,11 +64,11 @@ const open = (latLng, { width: w, height: h, map: m, offsetX: offX, offsetY: off
       offsetX.value = offX
       offsetY.value = offY
       lnglat.value = latLng
-      
+
       action() // 计算初始位置
       listen() // 绑定地图事件
       show.value = true
-      
+
       nextTick(() => {
         panTo() // 检查并修正位置（包含全向安全距离检测）
         resolve()
@@ -97,14 +97,14 @@ const listen = () => {
 const action = () => {
   if (!map.value) return
   let { x, y } = map.value.latLngToContainerPoint(lnglat.value)
-  
+
   // 处理偏移量
   if (offsetX.value) {
     left.value = x - offsetX.value
   } else {
     left.value = x + 20 // 默认向右偏移 20px
   }
-  
+
   if (offsetY.value) {
     top.value = y - offsetY.value
   } else {
@@ -133,10 +133,10 @@ const panTo = () => {
 
   // 3. 设定安全边距 (可根据需求调整)
   const SAFE_AREA = {
-    top: 152,    // 顶部安全距离 (避开顶部控件)
-    bottom: 50,  // 底部安全距离
-    left: 20,    // 左侧安全距离
-    right: 20    // 右侧安全距离
+    top: 152, // 顶部安全距离 (避开顶部控件)
+    bottom: 50, // 底部安全距离
+    left: 20, // 左侧安全距离
+    right: 20 // 右侧安全距离
   }
 
   let panX = 0
@@ -181,7 +181,7 @@ const panTo = () => {
 // --- 暴露接口 ---
 defineExpose({
   open,
-  close,
+  close
 })
 </script>
 
@@ -211,7 +211,7 @@ defineExpose({
   height: 93px;
   position: absolute;
   left: -120px; /* 向左延伸 */
-  top: 40px;    /* 垂直居中微调 */
+  top: 40px; /* 垂直居中微调 */
   /* background-image: url(@/assets/img/new-risk/line.png); */
   background-size: 100% 100%;
   pointer-events: none;

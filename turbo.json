@@ -11,10 +11,18 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "storybook-static/**", "build/**"]
+      "outputs": ["dist/**", "storybook-static/**", "build/**"],
+      "cache": true
     },
     "lint": {
+      "dependsOn": ["^lint"]
     },
-    "typecheck": {}
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    }
   }
 }

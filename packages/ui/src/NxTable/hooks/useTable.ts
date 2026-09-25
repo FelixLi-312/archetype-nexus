@@ -9,6 +9,6 @@ export function useTable<T = any>() {
     loading,
     setData(items: T[]) {
       data.value = items
-    },
+    }
   }
 }

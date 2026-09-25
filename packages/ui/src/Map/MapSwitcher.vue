@@ -20,7 +20,7 @@ const emit = defineEmits(['update:modelValue', 'change'])
 const options: { label: string; value: MapType; icon?: string }[] = [
   { label: '标准地图', value: 'tdt' },
   { label: '天地图影像', value: 'tdt_img' },
-  { label: '地形晕渲', value: 'tdt_terrain' },
+  { label: '地形晕渲', value: 'tdt_terrain' }
 ]
 
 const isOpen = ref(false)
@@ -41,8 +41,8 @@ const select = (val: MapType) => {
     </div>
 
     <div v-if="isOpen" class="switcher-panel">
-      <div 
-        v-for="opt in options" 
+      <div
+        v-for="opt in options"
         :key="opt.value"
         :class="['switcher-item', { active: modelValue === opt.value }]"
         @click="select(opt.value)"
@@ -60,10 +60,22 @@ const select = (val: MapType) => {
   margin: 10px;
 }
 
-.topright { top: 0; right: 0; }
-.topleft { top: 0; left: 0; }
-.bottomright { bottom: 0; right: 0; }
-.bottomleft { bottom: 0; left: 0; }
+.topright {
+  top: 0;
+  right: 0;
+}
+.topleft {
+  top: 0;
+  left: 0;
+}
+.bottomright {
+  bottom: 0;
+  right: 0;
+}
+.bottomleft {
+  bottom: 0;
+  left: 0;
+}
 
 .switcher-btn {
   width: 34px;
@@ -74,7 +86,7 @@ const select = (val: MapType) => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   color: #333;
   margin-left: auto;
 }
@@ -88,7 +100,7 @@ const select = (val: MapType) => {
   background: #fff;
   border-radius: 4px;
   padding: 5px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   min-width: 100px;
 }
 

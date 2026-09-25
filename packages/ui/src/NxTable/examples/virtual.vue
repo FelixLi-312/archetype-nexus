@@ -25,8 +25,8 @@ const tableData = ref(
     id: i + 1,
     name: `用户${i + 1}`,
     index: i,
-    timestamp: Date.now() + i * 1000,
-  })),
+    timestamp: Date.now() + i * 1000
+  }))
 )
 </script>
 

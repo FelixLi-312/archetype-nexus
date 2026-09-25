@@ -1,30 +1,30 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger';
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common'
+import { AuthService } from './auth.service'
+import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger'
 
 export class LoginDto {
   @ApiProperty()
-  username!: string;
+  username!: string
 
   @ApiProperty()
-  password!: string;
+  password!: string
 }
 
 export class RegisterDto {
   @ApiProperty()
-  username!: string;
+  username!: string
 
   @ApiProperty()
-  password!: string;
+  password!: string
 
   @ApiProperty({ required: false })
-  email?: string;
+  email?: string
 
   @ApiProperty({ required: false })
-  nickname?: string;
+  nickname?: string
 
   @ApiProperty({ required: false })
-  avatar?: string;
+  avatar?: string
 }
 
 @ApiTags('Auth')
@@ -35,20 +35,20 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: 'Register' })
   register(@Body() dto: RegisterDto) {
-    return this.authService.register(dto);
+    return this.authService.register(dto)
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login' })
   login(@Body() dto: LoginDto) {
-    return this.authService.login(dto.username, dto.password);
+    return this.authService.login(dto.username, dto.password)
   }
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Logout' })
   logout() {
-    return this.authService.logout();
+    return this.authService.logout()
   }
 }

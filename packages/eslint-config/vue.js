@@ -10,8 +10,8 @@ export const vueConfig = {
     parserOptions: {
       parser: tsParser,
       ecmaVersion: 'latest',
-      sourceType: 'module',
-    },
+      sourceType: 'module'
+    }
   },
   plugins: {
     vue: vuePlugin,
@@ -31,5 +31,5 @@ export const vueConfig = {
         destructuredArrayIgnorePattern: '^_'
       }
     ]
-  },
+  }
 }

@@ -6,6 +6,6 @@ export function useSpan() {
     spanMethod,
     setSpanMethod(fn: Function) {
       spanMethod.value = fn
-    },
+    }
   }
 }

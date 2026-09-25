@@ -180,6 +180,7 @@ export interface ProTableEmits {
   (e: 'sort-change', data: any): void
   (e: 'update:currentPage', val: number): void
   (e: 'update:pageSize', val: number): void
+  (e: 'request-error', err: unknown): void
 }
 
 export interface ProTableInstance<T = any> {

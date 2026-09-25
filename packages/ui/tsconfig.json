@@ -2,12 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "types": ["vite/client", "react", "react-dom"],
+    "types": ["vite/client", "react", "react-dom"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "src/**/*.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/**/*.tsx"]
 }

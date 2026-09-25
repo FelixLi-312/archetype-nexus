@@ -9,6 +9,6 @@ export function useEvent() {
     },
     off(name: string) {
       delete listeners.value[name]
-    },
+    }
   }
 }

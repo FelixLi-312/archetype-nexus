@@ -3,11 +3,7 @@
     <!-- 顶部填报单位 -->
     <div class="report-header">
       <span class="label">填报单位（盖章）：</span>
-      <el-input
-        v-model="formData.unitName"
-        placeholder="请输入单位名称"
-        style="width: 300px"
-      />
+      <el-input v-model="formData.unitName" placeholder="请输入单位名称" style="width: 300px" />
     </div>
 
     <!-- 主报表表格 -->
@@ -124,51 +120,31 @@
         <!-- 单位负责人 -->
         <el-col :span="5">
           <span class="field-label">单位负责人：</span>
-          <el-input
-            v-model="formData.manager_unit"
-            class="inline-input"
-            placeholder="姓名"
-          />
+          <el-input v-model="formData.manager_unit" class="inline-input" placeholder="姓名" />
         </el-col>
 
         <!-- 统计负责人 -->
         <el-col :span="5">
           <span class="field-label">统计负责人：</span>
-          <el-input
-            v-model="formData.manager_stats"
-            class="inline-input"
-            placeholder="姓名"
-          />
+          <el-input v-model="formData.manager_stats" class="inline-input" placeholder="姓名" />
         </el-col>
 
         <!-- 填表人 -->
         <el-col :span="5">
           <span class="field-label">填表人：</span>
-          <el-input
-            v-model="formData.form_filler"
-            class="inline-input"
-            placeholder="姓名"
-          />
+          <el-input v-model="formData.form_filler" class="inline-input" placeholder="姓名" />
         </el-col>
 
         <!-- 联系电话 -->
         <el-col :span="5">
           <span class="field-label">联系电话：</span>
-          <el-input
-            v-model="formData.phone"
-            class="inline-input"
-            placeholder="号码"
-          />
+          <el-input v-model="formData.phone" class="inline-input" placeholder="号码" />
         </el-col>
 
         <!-- 报出日期 -->
         <el-col :span="4">
           <span class="field-label">报出日期：</span>
-          <el-input
-            v-model="formData.report_date"
-            class="inline-input"
-            placeholder="yyyy.mm.dd"
-          />
+          <el-input v-model="formData.report_date" class="inline-input" placeholder="yyyy.mm.dd" />
         </el-col>
       </el-row>
     </div>
@@ -181,7 +157,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 const formData = reactive({
   unitName: '',
@@ -203,11 +179,11 @@ const formData = reactive({
   form_filler: '屠颖超', // 对应 填表人
   phone: '18161872050', // 对应 联系电话
   report_date: '2025.8.15' // 对应 报出日期
-});
+})
 
 const submitForm = () => {
-  console.log('提交的数据:', JSON.parse(JSON.stringify(formData)));
-};
+  console.log('提交的数据:', JSON.parse(JSON.stringify(formData)))
+}
 </script>
 
 <style scoped>
@@ -216,7 +192,9 @@ const submitForm = () => {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family:
+    'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑',
+    Arial, sans-serif;
 }
 
 .report-header {
@@ -236,7 +214,8 @@ const submitForm = () => {
   border: 1px solid #000;
   margin-bottom: 20px;
 }
-.custom-table th, .custom-table td {
+.custom-table th,
+.custom-table td {
   border: 1px solid #000;
   padding: 8px 10px;
   text-align: center;
@@ -257,10 +236,21 @@ const submitForm = () => {
   text-align: left;
   padding-left: 15px;
 }
-.code-cell { width: 60px; background-color: #fafafa; }
-.label-cell { text-align: left; padding-left: 10px; }
-.data-cell { padding: 4px; }
-.unit-cell { color: #666; font-size: 12px; }
+.code-cell {
+  width: 60px;
+  background-color: #fafafa;
+}
+.label-cell {
+  text-align: left;
+  padding-left: 10px;
+}
+.data-cell {
+  padding: 4px;
+}
+.unit-cell {
+  color: #666;
+  font-size: 12px;
+}
 
 /* --- 新增样式：底部签字栏 --- */
 .footer-signature {

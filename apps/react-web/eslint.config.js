@@ -1,3 +1,3 @@
-import config from '@nexus/eslint-config'
+import { ignores, baseConfig, reactConfig } from '@nexus/eslint-config'
 
-export default config
+export default [ignores, baseConfig, reactConfig]

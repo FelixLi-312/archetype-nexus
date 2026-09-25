@@ -26,18 +26,16 @@ const tableData = ref([
     createTime: '2024-01-01',
     children: [
       { id: 2, name: '模块A-1', status: '启用', createTime: '2024-01-02' },
-      { id: 3, name: '模块A-2', status: '禁用', createTime: '2024-01-03' },
-    ],
+      { id: 3, name: '模块A-2', status: '禁用', createTime: '2024-01-03' }
+    ]
   },
   {
     id: 4,
     name: '模块B',
     status: '启用',
     createTime: '2024-01-04',
-    children: [
-      { id: 5, name: '模块B-1', status: '启用', createTime: '2024-01-05' },
-    ],
-  },
+    children: [{ id: 5, name: '模块B-1', status: '启用', createTime: '2024-01-05' }]
+  }
 ])
 </script>
 

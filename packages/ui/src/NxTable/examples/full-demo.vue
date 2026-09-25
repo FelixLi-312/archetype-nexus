@@ -17,7 +17,7 @@
     >
       <!-- Search Form Slot -->
       <template #search>
-        <div style="padding: 12px; background: #f5f5f5;">
+        <div style="padding: 12px; background: #f5f5f5">
           <el-row :gutter="12">
             <el-col :xs="24" :sm="12" :md="6">
               <el-input v-model="filters.name" placeholder="名称" />
@@ -68,7 +68,7 @@ const tableData = ref([
     age: 25,
     email: 'zhangsan@example.com',
     createTime: '2024-01-01',
-    status: '启用',
+    status: '启用'
   },
   {
     id: 2,
@@ -76,7 +76,7 @@ const tableData = ref([
     age: 30,
     email: 'lisi@example.com',
     createTime: '2024-01-02',
-    status: '启用',
+    status: '启用'
   },
   {
     id: 3,
@@ -84,27 +84,27 @@ const tableData = ref([
     age: 28,
     email: 'wangwu@example.com',
     createTime: '2024-01-03',
-    status: '禁用',
-  },
+    status: '禁用'
+  }
 ])
 
 const searchText = ref('')
 const filters = reactive({
   name: '',
-  email: '',
+  email: ''
 })
 
 const exportMenu = [
   { label: 'CSV', handle: 'csv' as any },
   { label: 'Excel', handle: 'xlsx' as any },
-  { label: 'HTML', handle: 'html' as any },
+  { label: 'HTML', handle: 'html' as any }
 ]
 
 const paginationOptions = {
   currentPage: 1,
   pageSize: 10,
   total: 30,
-  layout: 'total, sizes, prev, pager, next, jumper',
+  layout: 'total, sizes, prev, pager, next, jumper'
 }
 
 const handleRefresh = () => {

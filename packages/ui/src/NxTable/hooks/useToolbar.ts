@@ -7,6 +7,6 @@ export function useToolbar() {
     visible,
     toggle() {
       visible.value = !visible.value
-    },
+    }
   }
 }

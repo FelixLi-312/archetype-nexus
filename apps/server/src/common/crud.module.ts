@@ -1,5 +1,5 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { CreateCrudService, CreateCrudController } from './crud.factory';
+import { DynamicModule, Module } from '@nestjs/common'
+import { CreateCrudService, CreateCrudController } from './crud.factory'
 
 @Module({})
 export class CrudModule {
@@ -11,27 +11,25 @@ export class CrudModule {
   static forFeature<T, CreateInput, UpdateInput>(
     modelName: string,
     options?: {
-      path?: string;
-      tag?: string;
-    },
+      path?: string
+      tag?: string
+    }
   ): DynamicModule {
-    const path = options?.path || modelName.toLowerCase();
-    const tag = options?.tag || modelName;
+    const path = options?.path || modelName.toLowerCase()
+    const tag = options?.tag || modelName
 
-    const ServiceClass = CreateCrudService<T, CreateInput, UpdateInput>(
-      modelName,
-    );
+    const ServiceClass = CreateCrudService<T, CreateInput, UpdateInput>(modelName)
     const ControllerClass = CreateCrudController<T, CreateInput, UpdateInput>(
       path,
       ServiceClass,
-      tag,
-    );
+      tag
+    )
 
     return {
       module: CrudModule,
       providers: [ServiceClass],
       controllers: [ControllerClass],
-      exports: [ServiceClass],
-    };
+      exports: [ServiceClass]
+    }
   }
 }

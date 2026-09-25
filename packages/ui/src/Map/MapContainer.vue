@@ -1,13 +1,9 @@
-/**
- * 地图容器组件
- * 用于创建和管理 Leaflet 地图实例
- * 支持自定义地图配置和事件绑定
- */
+/** * 地图容器组件 * 用于创建和管理 Leaflet 地图实例 * 支持自定义地图配置和事件绑定 */
 <script setup lang="ts">
 import { ref, shallowRef, onMounted, onBeforeUnmount, provide, watch } from 'vue'
 import L from 'leaflet'
 import type { MapProps } from './types'
-import { markRaw } from 'vue';
+import { markRaw } from 'vue'
 
 const props = withDefaults(defineProps<MapProps>(), {
   mapType: 'tdt',
@@ -15,9 +11,14 @@ const props = withDefaults(defineProps<MapProps>(), {
   resizeDebounce: 150
 })
 
-const emit = defineEmits(['ready', 'click', 'moveend', 'update:center', 'update:zoom', 'update:mapType'])
-
-
+const emit = defineEmits([
+  'ready',
+  'click',
+  'moveend',
+  'update:center',
+  'update:zoom',
+  'update:mapType'
+])
 
 const mapRef = ref<HTMLDivElement>()
 const map = shallowRef<L.Map>()
@@ -32,7 +33,6 @@ const resetView = () => {
 
 provide('leafletMap', map)
 provide('resetView', resetView)
-
 
 // 🌍 地图服务
 const MAP_SERVICES = {
@@ -53,7 +53,6 @@ const MAP_SERVICES = {
   ]
 }
 
-
 const getTileUrls = () => {
   if (props.tileLayerUrl) return [props.tileLayerUrl]
   const service = (MAP_SERVICES as any)[props.mapType]
@@ -62,25 +61,26 @@ const getTileUrls = () => {
 
 const updateTileLayers = () => {
   if (!map.value) return
-  
+
   // 移除旧图层
-  tileLayers.forEach(layer => layer.remove())
+  tileLayers.forEach((layer) => layer.remove())
   tileLayers.length = 0
 
   // 添加新图层
-  getTileUrls().forEach((url : string) => {
+  getTileUrls().forEach((url: string) => {
     const layer = L.tileLayer(url, props.tileLayerOptions).addTo(map.value!)
     tileLayers.push(layer)
   })
 }
 
 const initMap = () => {
-  map.value = markRaw(L.map(mapRef.value!, {
-    center: props.center,
-    zoom: props.zoom,
-    ...props.options
-  })
-)
+  map.value = markRaw(
+    L.map(mapRef.value!, {
+      center: props.center,
+      zoom: props.zoom,
+      ...props.options
+    })
+  )
   updateTileLayers()
 
   bindEvents()
@@ -88,7 +88,7 @@ const initMap = () => {
 }
 
 const bindEvents = () => {
-  map.value?.on('click', e => emit('click', e.latlng))
+  map.value?.on('click', (e) => emit('click', e.latlng))
 
   map.value?.on('moveend', () => {
     const center = map.value!.getCenter()
@@ -104,7 +104,6 @@ const flyTo = (center: [number, number], zoom?: number) => {
   map.value?.flyTo(center, zoom ?? map.value.getZoom())
 }
 
-
 const setZoom = (zoom: number) => map.value?.setZoom(zoom)
 const getMap = () => map.value
 
@@ -113,9 +112,18 @@ const handleResize = () => {
   resizeTimer = setTimeout(() => map.value?.invalidateSize(), props.resizeDebounce)
 }
 
-watch(() => props.center, val => map.value?.flyTo(val))
-watch(() => props.zoom, val => map.value?.setZoom(val))
-watch(() => props.mapType, () => updateTileLayers())
+watch(
+  () => props.center,
+  (val) => map.value?.flyTo(val)
+)
+watch(
+  () => props.zoom,
+  (val) => map.value?.setZoom(val)
+)
+watch(
+  () => props.mapType,
+  () => updateTileLayers()
+)
 
 onMounted(() => {
   initMap()
@@ -131,8 +139,8 @@ defineExpose({ flyTo, setZoom, getMap, resetView })
 
 <template>
   <div class="map-container">
-    <div ref="mapRef" style="height:100%;width:100%"></div>
-  <slot />
+    <div ref="mapRef" style="height: 100%; width: 100%"></div>
+    <slot />
   </div>
 </template>
 

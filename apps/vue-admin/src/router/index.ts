@@ -1,7 +1,6 @@
-// src/router/index.ts
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
-// import { useUserStore } from '@/store/modules/user'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/login',
@@ -29,7 +28,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('@/views/Dashboard/index.vue'),
         meta: { title: '仪表盘', icon: 'Location' }
       },
       {
@@ -60,60 +59,20 @@ const routes: RouteRecordRaw[] = [
         path: 'report-table',
         name: 'report-table',
         component: () => import('@/views/Report/index.vue'),
-        meta: { title: 'VxeTable 示例', icon: 'Menu' }
+        meta: { title: '报表示例', icon: 'Menu' }
       }
     ]
   },
-  // 404 page must be placed at the end !!!
   {
     path: '/:pathMatch(.*)*',
     redirect: '/404',
     meta: { hidden: true }
   }
-];
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
-
-// 白名单路由
-// const whiteList = ['/login', '/register', '/404']
-
-// router.beforeEach(async (to) => {
-//   const userStore = useUserStore()
-//   const hasToken = userStore.token
-//   if (hasToken) {
-//     if (to.path === '/login') {
-//       // 如果已登录，跳转到首页
-//       return { path: '/' }
-//     } else {
-//       // 检查是否有用户信息
-//       const hasUserInfo = !!userStore.userInfo
-//       if (hasUserInfo) {
-//         return true
-//       } else {
-//         try {
-//           // 获取用户信息
-//           await userStore.getInfo()
-//           return true
-//         } catch (_error) {
-//           // 获取信息失败，清除 token 并跳转登录
-//           await userStore.clearToken()
-//           return `/login?redirect=${to.path}`
-//         }
-//       }
-//     }
-//   } else {
-//     // 没有 token
-//     if (whiteList.indexOf(to.path) !== -1) {
-//       // 在免登录白名单，直接进入
-//       return true
-//     } else {
-//       // 否则全部重定向到登录页
-//       return `/login?redirect=${to.path}`
-//     }
-//   }
-// })
 
 export default router

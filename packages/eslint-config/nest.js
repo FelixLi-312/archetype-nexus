@@ -1,7 +1,7 @@
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 export const nestConfig = tseslint.config(
   eslint.configs.recommended,
@@ -11,20 +11,20 @@ export const nestConfig = tseslint.config(
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.jest,
+        ...globals.jest
       },
       sourceType: 'commonjs',
       parserOptions: {
-        projectService: true,
-      },
-    },
+        projectService: true
+      }
+    }
   },
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
-    },
-  },
-);
+      'prettier/prettier': ['error', { endOfLine: 'auto' }]
+    }
+  }
+)

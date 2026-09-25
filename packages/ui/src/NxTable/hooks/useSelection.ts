@@ -6,6 +6,6 @@ export function useSelection<T = any>() {
     selectedKeys,
     setSelected(keys: T[]) {
       selectedKeys.value = keys
-    },
+    }
   }
 }

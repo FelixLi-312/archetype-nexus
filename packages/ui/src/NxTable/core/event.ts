@@ -15,7 +15,10 @@ export function offEvent(name: string, handler?: EventHandler) {
   }
   const handlers = eventMap.get(name)
   if (handlers) {
-    eventMap.set(name, handlers.filter((fn) => fn !== handler))
+    eventMap.set(
+      name,
+      handlers.filter((fn) => fn !== handler)
+    )
   }
 }
 

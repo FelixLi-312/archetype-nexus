@@ -6,6 +6,6 @@ export function useRowKey<T = any>(keyField = 'id') {
     rowKey,
     setRowKey(field: string) {
       rowKey.value = field
-    },
+    }
   }
 }

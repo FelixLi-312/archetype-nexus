@@ -10,6 +10,6 @@ export function useSearch<T = Record<string, any>>() {
     },
     reset() {
       filters.value = {} as Partial<T>
-    },
+    }
   }
 }

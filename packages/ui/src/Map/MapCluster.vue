@@ -1,8 +1,5 @@
-/**
- * 地图标记聚类组件
- * 用于在地图上添加标记聚类（marker cluster）
- * 支持自定义标记项配置和事件绑定
- */
+/** * 地图标记聚类组件 * 用于在地图上添加标记聚类（marker cluster） * 支持自定义标记项配置和事件绑定
+*/
 <template></template>
 <script setup lang="ts">
 import { inject, watch } from 'vue'
@@ -19,16 +16,20 @@ const props = defineProps({
 const map = inject<any>('leafletMap')
 let cluster: any
 
-watch([() => props.markers, () => map.value], ([val, mapInstance]) => {
-  if (!mapInstance) return
+watch(
+  [() => props.markers, () => map.value],
+  ([val, mapInstance]) => {
+    if (!mapInstance) return
 
-  if (cluster) cluster.clearLayers()
-  cluster = L.markerClusterGroup()
+    if (cluster) cluster.clearLayers()
+    cluster = L.markerClusterGroup()
 
-  val.forEach(m => {
-    cluster.addLayer(L.marker(m.latLng))
-  })
+    val.forEach((m) => {
+      cluster.addLayer(L.marker(m.latLng))
+    })
 
-  mapInstance.addLayer(cluster)
-}, { immediate: true })
+    mapInstance.addLayer(cluster)
+  },
+  { immediate: true }
+)
 </script>

@@ -5,56 +5,51 @@
         <h1 class="title">Nexus Admin</h1>
         <p class="subtitle">欢迎回来，请登录您的账号</p>
       </div>
-      
-      <el-form 
-        ref="loginFormRef" 
-        :model="loginForm" 
-        :rules="loginRules" 
+
+      <el-form
+        ref="loginFormRef"
+        :model="loginForm"
+        :rules="loginRules"
         class="login-form"
         label-position="top"
       >
         <el-form-item label="用户名" prop="username">
-          <el-input 
-            v-model="loginForm.username" 
-            placeholder="请输入用户名" 
+          <el-input
+            v-model="loginForm.username"
+            placeholder="请输入用户名"
             :prefix-icon="User"
             clearable
           />
         </el-form-item>
-        
+
         <el-form-item label="密码" prop="password">
-          <el-input 
-            v-model="loginForm.password" 
-            type="password" 
-            placeholder="请输入密码" 
+          <el-input
+            v-model="loginForm.password"
+            type="password"
+            placeholder="请输入密码"
             :prefix-icon="Lock"
             show-password
             clearable
             @keyup.enter="handleLogin"
           />
         </el-form-item>
-        
+
         <div class="form-footer">
           <el-checkbox v-model="rememberMe">记住我</el-checkbox>
           <el-link type="primary" :underline="false">忘记密码？</el-link>
         </div>
-        
+
         <el-form-item>
-          <el-button 
-            type="primary" 
-            :loading="loading" 
-            class="login-button" 
-            @click="handleLogin"
-          >
+          <el-button type="primary" :loading="loading" class="login-button" @click="handleLogin">
             登录
           </el-button>
         </el-form-item>
-        
+
         <div class="register-link">
           还没有账号？<el-link type="primary" @click="$router.push('/register')">立即注册</el-link>
         </div>
       </el-form>
-      
+
       <div class="social-login">
         <p class="divider-text">其他登录方式</p>
         <div class="social-icons">
@@ -106,15 +101,15 @@ const loginRules = {
 
 const handleLogin = async () => {
   if (!loginFormRef.value) return
-  
+
   await loginFormRef.value.validate()
-  
+
   loading.value = true
   try {
     await userStore.login(loginForm)
     ElMessage.success('登录成功')
-    
-    const redirect = route.query.redirect as string || '/'
+
+    const redirect = (route.query.redirect as string) || '/'
     router.push(redirect)
   } catch (error: any) {
     ElMessage.error(error.message || '登录失败')
@@ -131,18 +126,18 @@ const handleLogin = async () => {
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  
+
   .login-box {
     width: 450px;
     padding: 40px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    
+
     .login-header {
       text-align: center;
       margin-bottom: 30px;
-      
+
       .title {
         margin: 0;
         font-size: 32px;
@@ -150,14 +145,14 @@ const handleLogin = async () => {
         font-weight: 800;
         letter-spacing: 1px;
       }
-      
+
       .subtitle {
         margin-top: 10px;
         color: #666;
         font-size: 14px;
       }
     }
-    
+
     .login-form {
       .form-footer {
         display: flex;
@@ -166,7 +161,7 @@ const handleLogin = async () => {
         margin-bottom: 20px;
         font-size: 14px;
       }
-      
+
       .login-button {
         width: 100%;
         height: 45px;
@@ -175,18 +170,20 @@ const handleLogin = async () => {
         border-radius: 8px;
         background: linear-gradient(to right, #667eea, #764ba2);
         border: none;
-        transition: transform 0.2s, box-shadow 0.2s;
-        
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+
         &:hover {
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
         }
-        
+
         &:active {
           transform: translateY(0);
         }
       }
-      
+
       .register-link {
         text-align: center;
         margin-top: 20px;
@@ -194,18 +191,19 @@ const handleLogin = async () => {
         color: #666;
       }
     }
-    
+
     .social-login {
       margin-top: 30px;
       text-align: center;
-      
+
       .divider-text {
         position: relative;
         font-size: 12px;
         color: #999;
         margin-bottom: 20px;
-        
-        &::before, &::after {
+
+        &::before,
+        &::after {
           content: '';
           position: absolute;
           top: 50%;
@@ -213,21 +211,25 @@ const handleLogin = async () => {
           height: 1px;
           background-color: #eee;
         }
-        
-        &::before { left: 0; }
-        &::after { right: 0; }
+
+        &::before {
+          left: 0;
+        }
+        &::after {
+          right: 0;
+        }
       }
-      
+
       .social-icons {
         display: flex;
         justify-content: center;
         gap: 20px;
-        
+
         .icon-btn {
           font-size: 20px;
           color: #666;
           border-color: #eee;
-          
+
           &:hover {
             color: #764ba2;
             border-color: #764ba2;
